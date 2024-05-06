@@ -1,439 +1,443 @@
 /* Reset and Basic Styles */
-    /* Removes default margin and padding for all elements and prevents overflow */
-    html,
-    body {
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        background-color: black;
-    }
+/* Removes default margin and padding for all elements and prevents overflow */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: black;
+}
 
-    /* Video Container Styles */
-    /* Defines the main video container layout and background video styles */
-    .video-container {
-        position: relative;
-        width: 100vw;
-        height: 100vh;
-    }
+/* Video Container Styles */
+/* Defines the main video container layout and background video styles */
+.video-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
 
-    .background-video {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 1;
-        object-fit: cover;
-    }
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  object-fit: cover;
+}
 
-    /* Transition Video Styles */
-    /* Styles for transition videos with fade-in and fade-out effects */
-    .transition-video {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        /* Initial state */
-        transition: opacity 0.5s ease-in-out;
-        /* Controls the fade-in and fade-out duration */
-        z-index: 3;
-        /* Ensure it's above other elements */
-        pointer-events: none;
-        object-fit: cover;
-    }
+/* Transition Video Styles */
+/* Styles for transition videos with fade-in and fade-out effects */
+.transition-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  /* Initial state */
+  transition: opacity 0.5s ease-in-out;
+  /* Controls the fade-in and fade-out duration */
+  z-index: 3;
+  /* Ensure it's above other elements */
+  pointer-events: none;
+  object-fit: cover;
+}
 
-    /* Navigation and Interaction Elements */
-    /* Back button container with positioning */
-    .back-button-container {
-        position: absolute;
-        top: 20px;
-        /* Adjust as needed */
-        right: 20px;
-        /* Adjust as needed */
-        z-index: 10;
-        /* Ensure it's above other elements */
-    }
+/* Navigation and Interaction Elements */
+/* Back button container with positioning */
+.back-button-container {
+  position: absolute;
+  top: 20px;
+  /* Adjust as needed */
+  right: 20px;
+  /* Adjust as needed */
+  z-index: 10;
+  /* Ensure it's above other elements */
+}
 
-    #backButton {
-        padding: 10px;
-        cursor: pointer;
-    }
+#backButton {
+  padding: 10px;
+  cursor: pointer;
+}
 
-    /* Page Content Styles */
-    /* Defines the layout for the main content area of the page */
-    .page-content {
-        position: relative;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+/* Page Content Styles */
+/* Defines the layout for the main content area of the page */
+.page-content {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    /* Interaction Triggers */
-    /* Styles for elements that trigger actions, like dynamic content changes */
-    .trigger-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        /* Matches the .video-container width */
-        height: 100%;
-        /* Stretches to match .video-container height dynamically */
-        display: flex;
-        justify-content: center;
-        /* Centering the child horizontally */
-        align-items: center;
-        /* Centering the child vertically */
-        transition: opacity 0.3s ease-in-out;
-        /* Smooth transition for fading */
-        text-transform: uppercase;
-    }
+/* Interaction Triggers */
+/* Styles for elements that trigger actions, like dynamic content changes */
+.trigger-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  /* Matches the .video-container width */
+  height: 100%;
+  /* Stretches to match .video-container height dynamically */
+  display: flex;
+  justify-content: center;
+  /* Centering the child horizontally */
+  align-items: center;
+  /* Centering the child vertically */
+  transition: opacity 0.3s ease-in-out;
+  /* Smooth transition for fading */
+  text-transform: uppercase;
+}
 
-    .dynamic-trigger {
-        width: 40px;
-        height: 40px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        pointer-events: all;
-        cursor: pointer;
-        transition: transform 0.3s ease;
-        /* Smooth transition for the transform property */
-        background: rgba(255, 255, 255, 0.5);
-        /* White, half-transparent background */
-        border-radius: 50%;
-        /* Makes it a circle */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+.dynamic-trigger {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: all;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  /* Smooth transition for the transform property */
+  background: rgba(255, 255, 255, 0.5);
+  /* White, half-transparent background */
+  border-radius: 50%;
+  /* Makes it a circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    .dynamic-trigger:hover .icon {
-        transform: rotate(180deg);
-        transition: transform 0.25s ease;
-    }
+.dynamic-trigger:hover .icon {
+  transform: rotate(180deg);
+  transition: transform 0.25s ease;
+}
 
-    .icon {
-        transform: scale(0.7);
-        transition: transform 0.3 ease;
-    }
+.icon {
+  transform: scale(0.7);
+  transition: transform 0.3 ease;
+}
 
-    .popup {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) scale(1);
-        width: 74vw;
-        height: calc(74vw * 9 / 16);
-        background-color: rgb(0, 0, 0);
-        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
-        z-index: 99999999999999;
-        overflow: hidden;
-        opacity: 0;
-        transition: visibility 0s linear 0.5s, opacity 0.5s ease,
-            transform 0.5s ease;
-        border-radius: 1vh;
-    }
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  width: 74vw;
+  height: calc(74vw * 9 / 16);
+  background-color: rgb(0, 0, 0);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+  z-index: 99999999999999;
+  overflow: hidden;
+  opacity: 0;
+  transition: visibility 0s linear 0.5s, opacity 0.5s ease, transform 0.5s ease;
+  border-radius: 1vh;
+}
 
-    .popup.active {
-        visibility: visible;
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-        border-radius: 1vh;
-        z-index: 99999999999;
-    }
+.popup.active {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  border-radius: 1vh;
+  z-index: 99999999999;
+}
 
-    .background-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 500;
-        opacity: 1;
-        backdrop-filter: blur(0);
-        transition: backdrop-filter 0.5s ease;
-    }
+.background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 500;
+  opacity: 1;
+  backdrop-filter: blur(0);
+  transition: backdrop-filter 0.5s ease;
+}
 
-    .background-overlay.active {
-        backdrop-filter: blur(5px);
-        z-index: 9999999999;
-    }
+.background-overlay.active {
+  backdrop-filter: blur(5px);
+  z-index: 9999999999;
+}
 
-    .back-button {
-        background: rgba(255, 255, 255, 0.1);
-        border: none;
-        color: white;
-        font-size: 1vw;
-        cursor: pointer;
-        padding: 15px 30px;
-        margin: 10px;
-        outline: none;
-        font-family: "Saira", sans-serif;
-        transition: all 0.3s ease;
-        border-radius: 8px;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        backdrop-filter: blur(10px);
-        position: absolute;
-        /* Ensure button positioning works as expected */
-        bottom: 1.5vh;
-        left: 1.5vw;
-        display: none;
-    }
+.back-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  font-size: 1vw;
+  cursor: pointer;
+  padding: 15px 30px;
+  margin: 10px;
+  outline: none;
+  font-family: "Saira", sans-serif;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  position: absolute;
+  /* Ensure button positioning works as expected */
+  bottom: 1.5vh;
+  left: 1.5vw;
+  display: none;
+}
 
-    .back-button:hover {
-        background: rgba(255, 255, 255, 0.3);
-        box-shadow: 0 0 10px rgba(240, 110, 25, 0.8);
-    }
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 10px rgba(240, 110, 25, 0.8);
+}
 
-    .transparent-button {
-        background: rgba(255, 255, 255, 0.1);
-        border: none;
-        color: white;
-        width: 13vw;
-        font-size: 0.7vw;
-        padding: 10px 25px;
-        margin: 10px;
-        outline: none;
-        font-family: "Saira", sans-serif;
-        transition: all 0.3s ease;
-        border-radius: 8px;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        backdrop-filter: blur(10px);
-        position: absolute;
-        /* Ensure button positioning works as expected */
-        text-align: center;
-        align-items: center;
-        margin-left: 30px;
-        justify-content: center;
-        /* Centering the child horizontally */
-        display: inline-block;
-    }
+.transparent-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  width: 13vw;
+  font-size: 0.7vw;
+  padding: 10px 25px;
+  margin: 10px;
+  outline: none;
+  font-family: "Saira", sans-serif;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  position: absolute;
+  /* Ensure button positioning works as expected */
+  text-align: center;
+  align-items: center;
+  margin-left: 30px;
+  justify-content: center;
+  /* Centering the child horizontally */
+  display: inline-block;
+}
 
-    .transparent-button:hover {
-        box-shadow: 0 0 10px 0 #2ad2ff inset, 0 0 20px 2px #2ad2ff;
-        border: 3px solid #2ad2ff;
-    }
+.transparent-button:hover {
+  box-shadow: 0 0 10px 0 #2ad2ff inset, 0 0 20px 2px #2ad2ff;
+  border: 3px solid #2ad2ff;
+}
 
-    /* STYLES FÜR DIE GEHIGHLIGHTETEN BUTTONS */
+/* STYLES FÜR DIE GEHIGHLIGHTETEN BUTTONS */
 
-    .transparent-button.highlighted {
-        box-shadow: 0 0 10px 0 #fcd54e inset, 0 0 20px 2px #fc9e4e;
-        border: 3px solid #ff8953;
-    }
+.transparent-button.highlighted {
+  box-shadow: 0 0 10px 0 #fcd54e inset, 0 0 20px 2px #fc9e4e;
+  border: 3px solid #ff8953;
+}
 
-    .transparent-button.highlighted:hover {
-        box-shadow: 0 0 10px 0 #2ad2ff inset, 0 0 20px 2px #2ad2ff;
-        border: 3px solid #2ad2ff;
-    }
+.transparent-button.highlighted:hover {
+  box-shadow: 0 0 10px 0 #2ad2ff inset, 0 0 20px 2px #2ad2ff;
+  border: 3px solid #2ad2ff;
+}
 
-    /* STYLES FÜR VIDEOCONTAINER */
+/* STYLES FÜR VIDEOCONTAINER */
 
-    .video-container {
-        position: relative;
-    }
+.video-container {
+  position: relative;
+}
 
-    .overlay-video {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        pointer-events: none;
-        z-index: 2;
-        object-fit: cover;
-    }
+.overlay-video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 2;
+  object-fit: cover;
+}
 
-    #overlay {
-        position: relative;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: black;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        z-index: 100;
-        opacity: 1;
-        transition: opacity 0.5s ease;
-    }
+#overlay {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
 
-    #logo {
-        width: 100%;
-        /* Make the image fill the width of its container */
-        height: 100vh;
-        /* Make the image fill the height of the viewport */
-        object-fit: cover;
-        /* Cover the area without breaking aspect ratio */
-        display: block;
-        /* Remove any default margin or padding */
-        position: absolute;
-        /* Position it relative to its nearest positioned ancestor or the viewport */
-        top: 0;
-        left: 0;
-    }
+#logo {
+  width: 100%;
+  /* Make the image fill the width of its container */
+  height: 100vh;
+  /* Make the image fill the height of the viewport */
+  object-fit: cover;
+  /* Cover the area without breaking aspect ratio */
+  display: block;
+  /* Remove any default margin or padding */
+  position: absolute;
+  /* Position it relative to its nearest positioned ancestor or the viewport */
+  top: 0;
+  left: 0;
+}
 
-    #start-journey {
-        background: rgba(255, 255, 255, 0.1);
-        border: none;
-        color: white;
-        width: 8vw;
-        font-size: 1.3vw;
-        padding: 19px 25px;
-        margin: 10px;
-        margin-top: 8%;
-        outline: none;
-        font-family: "Saira", sans-serif;
-        transition: all 0.3s ease;
-        border-radius: 8px;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        backdrop-filter: blur(10px);
-        position: absolute;
-        text-align: center;
-        align-items: center;
-        justify-content: center;
-        display: inline-block;
-        top: 34.6vh;
-    }
+#start-journey {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  width: 8vw;
+  font-size: 1.3vw;
+  padding: 19px 25px;
+  margin: 10px;
+  margin-top: 8%;
+  outline: none;
+  font-family: "Saira", sans-serif;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  position: absolute;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: inline-block;
+  top: 34.6vh;
+}
 
-    #start-journey:hover {
-        box-shadow: 0 0 10px 0 #2ad2ff inset, 0 0 20px 2px #2ad2ff;
-        border: 3px solid #2ad2ff;
-    }
+#start-journey:hover {
+  box-shadow: 0 0 10px 0 #2ad2ff inset, 0 0 20px 2px #2ad2ff;
+  border: 3px solid #2ad2ff;
+}
 
-    .mute-toggle {
-        position: fixed;
-        right: 2vw;
-        bottom: 3vh;
-        z-index: 2100;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        width: 2vw;
-        height: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-    }
+.mute-toggle {
+  position: fixed;
+  right: 2vw;
+  bottom: 3vh;
+  z-index: 2100;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 2vw;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
 
-    .mute-toggle img {
-        width: 100%;
-        height: auto;
-        transition: transform 0.3s ease;
-        /* Smooth transition for scaling */
-        /* Filter for white color - adjust as needed if your SVG isn't black */
-        filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
-    }
+.mute-toggle img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+  /* Smooth transition for scaling */
+  /* Filter for white color - adjust as needed if your SVG isn't black */
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%)
+    contrast(103%);
+}
 
-    .mute-toggle:hover img {
-        transform: scale(1.1);
-        /* Scale up slightly on hover */
-    }
+.mute-toggle:hover img {
+  transform: scale(1.1);
+  /* Scale up slightly on hover */
+}
 
-    .popup {
-        transition: opacity 0.5s ease;
-        opacity: 0;
-        /* Other styles for positioning and dimensions */
-    }
+.popup {
+  transition: opacity 0.5s ease;
+  opacity: 0;
+  /* Other styles for positioning and dimensions */
+}
 
-    .close-container {
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transform: scale(1.3);
-    }
+.close-container {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(1.3);
+}
 
-    .close-icon:hover {
-        opacity: 1 !important;
-        /* Override opacity on hover */
-    }
+.close-icon:hover {
+  opacity: 1 !important;
+  /* Override opacity on hover */
+}
 
-    .screen-div {
-        width: 56%;
-        position: absolute;
-        height: 56%;
-    }
+.screen-div {
+  position: absolute;
+  width: 56.2%;
+  height: 56.1%;
+  overflow: hidden;
+  border-radius: 10.3px;
+  top: 21.8%;
+  left: 22%;
+}
 
-    #HomeButton {
-        position: fixed;
-        right: 6vw;
-        bottom: 3.6vh;
-        z-index: 2100;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        width: 1.8vw;
-        height: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-    }
+#HomeButton {
+  position: fixed;
+  right: 6vw;
+  bottom: 3.6vh;
+  z-index: 2100;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 1.8vw;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
 
-    #NeyrooButton {
-        position: fixed;
-        left: 6vw;
-        bottom: 3.6vh;
-        z-index: 2100;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        width: 2.8vw;
-        height: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-    }
+#NeyrooButton {
+  position: fixed;
+  left: 6vw;
+  bottom: 3.6vh;
+  z-index: 2100;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 2.8vw;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
 
-    #DownloadButton {
-        position: fixed;
-        left: 2vw;
-        bottom: 3.14vh;
-        z-index: 2100;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        width: 2.1vw;
-        height: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-    }
+#DownloadButton {
+  position: fixed;
+  left: 2vw;
+  bottom: 3.14vh;
+  z-index: 2100;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 2.1vw;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
 
-    .Home-jump img {
-        transition: transform 0.3s ease;
-    }
+.Home-jump img {
+  transition: transform 0.3s ease;
+}
 
-    .Home-jump:hover img {
-        transform: scale(1.1) !important;
-        /* Scale up slightly on hover */
-    }
+.Home-jump:hover img {
+  transform: scale(1.1) !important;
+  /* Scale up slightly on hover */
+}
 
-    .Neyroo-website img {
-        transition: transform 0.3s ease;
-    }
+.Neyroo-website img {
+  transition: transform 0.3s ease;
+}
 
-    .Neyroo-website:hover img {
-        transform: scale(1.1) !important;
-        /* Scale up slightly on hover */
-    }
+.Neyroo-website:hover img {
+  transform: scale(1.1) !important;
+  /* Scale up slightly on hover */
+}
 
-    .Download-button img {
-        transition: transform 0.3s ease;
-    }
+.Download-button img {
+  transition: transform 0.3s ease;
+}
 
-    .Download-button:hover img {
-        transform: scale(1.1) !important;
-        /* Scale up slightly on hover */
-    }
+.Download-button:hover img {
+  transform: scale(1.1) !important;
+  /* Scale up slightly on hover */
+}

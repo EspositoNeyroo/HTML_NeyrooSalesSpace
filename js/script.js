@@ -1,23 +1,27 @@
 // INITIALES SETUP
 window.addEventListener("resize", updateTriggerContainer);
 
-document
-  .getElementById("start-journey")
-  .addEventListener("click", startJourney);
-
 const transitionVideoEl = document.querySelector(".transition-video");
 const triggerContainer = document.querySelector(".trigger-container");
 const backgroundVideoEl = document.querySelector(".background-video");
 const overlaysContainer = document.querySelector(".overlays-container");
 const videoContainer = document.querySelector(".video-container");
 const introOverlay = document.querySelector(".intro-overlay");
+const mediaElements = document.querySelectorAll("video, audio");
+const videos = document.querySelectorAll("video");
+const video = document.querySelector(".background-video");
+const screenDiv = document.querySelector(".screen-div");
 
+// STATE MANAGEMENT
+
+// INTRO STATE
 const introState = {
   transitionVideo:
     "https://neyroosales.space/wp-content/uploads/2024/04/ssn-intro-transition.mp4",
   targetState: "state1",
 };
-// State management
+
+// OTHER STATES
 const states = {
   //STATE 01 - MENU INITIAL
   state1: {
@@ -155,26 +159,10 @@ const states = {
     backgroundVideo:
       "https://neyroosales.space/wp-content/uploads/2024/04/ssn-screen-loop.mp4",
     screenDiv: true,
-    screenDivSource: "https://sites.neyrooverse.de/video-site/",
-    clickableOverlays: [
-      {
-        id: "overlay1",
-        position: {
-          top: "17vh",
-          left: "22vw",
-        },
-        size: {
-          width: "56vw",
-          height: "65%",
-        },
-        onClick() {
-          showPopup(
-            "https://neyroosales.space/wp-content/uploads/2024/04/tuev–camp3-official-release-trailer.mp4",
-            "video"
-          );
-        },
-      },
-    ],
+    screenDivType: "video",
+    screenDivSource:
+      "https://neyroosales.space/wp-content/uploads/2024/04/tuev–camp3-official-release-trailer.mp4",
+
     triggers: [
       {
         id: "trigger1",
@@ -182,16 +170,11 @@ const states = {
           top: "42%",
           left: "2%",
         },
-        text: "Begrüßung abspielen",
+        text: "Begrüßung (Vollbild)",
         highlighted: 1,
         targetState: "state2",
         icon: "",
-        onClick() {
-          showPopup(
-            "https://neyroosales.space/wp-content/uploads/2024/04/tuev–camp3-official-release-trailer.mp4",
-            "video"
-          );
-        },
+        onClick: enterFullscreenVideo,
       },
 
       {
@@ -305,6 +288,7 @@ const states = {
     backgroundVideo:
       "https://neyroosales.space/wp-content/uploads/2024/04/ssn-screen-loop.mp4",
     screenDiv: true,
+    screenDivType: "iframe",
     screenDivSource:
       "https://neyroosales.space/wp-content/uploads/2024/04/Pathway-by-Neyroo.pdf",
 
@@ -439,6 +423,7 @@ const states = {
     backgroundVideo:
       "https://neyroosales.space/wp-content/uploads/2024/04/ssn-screen-loop.mp4",
     screenDiv: true,
+    screenDivType: "iframe",
     screenDivSource:
       "https://neyroosales.space/wp-content/uploads/2024/04/Surprise-to-Engage.pdf",
 
@@ -573,26 +558,9 @@ const states = {
     backgroundVideo:
       "https://neyroosales.space/wp-content/uploads/2024/04/ssn-screen-loop.mp4",
     screenDiv: true,
-    screenDivSource: "https://sites.neyrooverse.de/video-site/",
-    clickableOverlays: [
-      {
-        id: "overlay1",
-        position: {
-          top: "17vh",
-          left: "22vw",
-        },
-        size: {
-          width: "56vw",
-          height: "65%",
-        },
-        onClick() {
-          showPopup(
-            "https://neyroosales.space/wp-content/uploads/2024/04/neyroo–welcome.mp4",
-            "video"
-          );
-        },
-      },
-    ],
+    screenDivType: "video",
+    screenDivSource:
+      "https://neyroosales.space/wp-content/uploads/2024/04/neyroo%E2%80%93welcome.mp4",
 
     triggers: [
       {
@@ -668,19 +636,14 @@ const states = {
           top: "42%",
           left: "82%",
         },
-        text: "Neyroo Film",
+        text: "Neyroo Film (Vollbild)",
         transitionVideo:
           "https://neyroosales.space/wp-content/uploads/2024/04/ssn-screen-to-screen-transition.mp4",
         transitionLength: 5120,
         highlighted: 1,
         targetState: "state5",
         icon: "",
-        onClick() {
-          showPopup(
-            "https://neyroosales.space/wp-content/uploads/2024/04/neyroo–welcome.mp4",
-            "video"
-          );
-        },
+        onClick: enterFullscreenVideo,
       },
       {
         id: "trigger5",
@@ -732,6 +695,7 @@ const states = {
     backgroundVideo:
       "https://neyroosales.space/wp-content/uploads/2024/04/ssn-screen-loop.mp4",
     screenDiv: true,
+    screenDivType: "iframe",
     screenDivSource: "https://neyroostudio.neyroo.de/",
 
     triggers: [
@@ -835,7 +799,6 @@ const states = {
         highlighted: 1,
         icon: "",
         onClick() {
-          // This will open the link in a new tab when the trigger is clicked
           window.open("https://neyroostudio.neyroo.de/", "_blank").focus();
         },
       },
@@ -867,26 +830,9 @@ const states = {
     backgroundVideo:
       "https://neyroosales.space/wp-content/uploads/2024/04/ssn-screen-loop.mp4",
     screenDiv: true,
-    screenDivSource: "https://sites.neyrooverse.de/video-site/",
-    clickableOverlays: [
-      {
-        id: "overlay1",
-        position: {
-          top: "17vh",
-          left: "22vw",
-        },
-        size: {
-          width: "56vw",
-          height: "65%",
-        },
-        onClick() {
-          showPopup(
-            "https://neyroosales.space/wp-content/uploads/2024/04/muv_forward_status_quo_trailer.mp4",
-            "video"
-          );
-        },
-      },
-    ],
+    screenDivType: "video",
+    screenDivSource:
+      "https://neyroosales.space/wp-content/uploads/2024/04/muv_forward_status_quo_trailer.mp4",
 
     triggers: [
       {
@@ -1003,19 +949,14 @@ const states = {
           top: "54%",
           left: "82%",
         },
-        text: "Demo Spatial Chat abspielen",
+        text: "Demo Spatial Chat (Vollbild)",
         highlighted: 1,
         transitionVideo:
           "https://neyroosales.space/wp-content/uploads/2024/04/ssn-screen-to-screen-transition.mp4",
         transitionLength: 5120,
         targetState: "state7",
         icon: "",
-        onClick() {
-          showPopup(
-            "https://neyroosales.space/wp-content/uploads/2024/04/muv_forward_status_quo_trailer.mp4",
-            "video"
-          );
-        },
+        onClick: enterFullscreenVideo,
       },
     ],
   },
@@ -1031,6 +972,7 @@ document.getElementById("NeyrooButton").addEventListener("click", function () {
   window.open("https://www.neyroo.de", "_blank");
 });
 
+// Download Button
 document
   .getElementById("DownloadButton")
   .addEventListener("click", function () {
@@ -1052,18 +994,15 @@ function startBackgroundSound() {
     .catch((error) => console.error("Error playing sound:", error));
 }
 
-//MANAGE AUDIO
+// START JOURNEY
 
 document.getElementById("start-journey").addEventListener("click", () => {
   // Unmute or set volume for existing media elements
   enableSoundForMedia();
-
-  // Start the journey
   startJourney();
 });
 
 function enableSoundForMedia() {
-  const mediaElements = document.querySelectorAll("video, audio");
   mediaElements.forEach((el) => {
     el.muted = false; // Unmute the element
   });
@@ -1071,21 +1010,19 @@ function enableSoundForMedia() {
 
 // MUTE UNMUTE BUTTON
 
-// Mute/Unmute Functionality
 document.getElementById("muteButton").addEventListener("click", function () {
+  // Query all video elements every time the button is clicked
   const videos = document.querySelectorAll("video");
-  const isMuted = videos[0].muted;
+  const isMuted = videos[0]?.muted; // Safe navigation operator in case there are no videos
   const newMuteState = !isMuted;
 
-  // Toggle mute state for all video elements
   videos.forEach((video) => {
     video.muted = newMuteState;
   });
 
-  // Toggle mute state for background audio
-  backgroundSound.muted = newMuteState; // Use the muted property for consistency with video elements
+  backgroundSound.muted = newMuteState;
 
-  // Update mute icon based on the new mute state
+  // Update the icon based on the new mute state
   const muteIcon = document.getElementById("muteIcon");
   muteIcon.src = newMuteState
     ? "https://asset.neyroo-hub.de/cc511007-cb13-430c-ab86-f76356def0e5/c196f9e1-308e-42ce-b1e7-8a5887fdf8ff/PUBLIC/8fcbb006-8315-4d55-8492-b89e2f7f30bc/volume-mute.svg?version=1"
@@ -1093,6 +1030,10 @@ document.getElementById("muteButton").addEventListener("click", function () {
 });
 
 // START JOURNEY
+
+document
+  .getElementById("start-journey")
+  .addEventListener("click", startJourney);
 
 function startJourney() {
   // Start the fade-out effect
@@ -1108,7 +1049,7 @@ function startJourney() {
   }, 500); // Matches the CSS transition duration
 }
 
-// INITIATE INTRO TRANSITION
+// INTRO TRANSITION
 
 function initiateIntroTransition() {
   togglePointerEvents([triggerContainer, overlaysContainer], false);
@@ -1135,7 +1076,8 @@ function initiateIntroTransition() {
   }, 7400); // This ensures the cleanup happens right after the transition finishes
 }
 
-// ÜBERGANG FUNKTION
+// TRANSITION CODE
+
 function initiateTransition(transitionVideoSrc, nextState, transitionLength) {
   triggerContainer.style.opacity = "0";
   togglePointerEvents([triggerContainer, overlaysContainer], false);
@@ -1149,6 +1091,7 @@ function initiateTransition(transitionVideoSrc, nextState, transitionLength) {
   // Use the transitionLength to determine when to start fading out
   setTimeout(() => {
     transitionVideoEl.style.opacity = "0";
+    updateTriggerContainer();
   }, transitionLength - 500); // Start fading out 500ms before the video ends
 
   // Change state after 0.5 seconds
@@ -1163,7 +1106,6 @@ function initiateTransition(transitionVideoSrc, nextState, transitionLength) {
     transitionVideoEl.style.opacity = "0";
     transitionVideoEl.src = "";
     triggerContainer.style.opacity = "1";
-    updateTriggerContainer();
   }, transitionLength);
 
   // Enable Clicks 0.5 sec after Transition
@@ -1173,13 +1115,12 @@ function initiateTransition(transitionVideoSrc, nextState, transitionLength) {
   }, transitionLength + 1000);
 }
 
-// STATE ÄNDERN FUNKTION
+// STATE CHANGE CODE
+
 function changeState(stateKey, transitionLength) {
   const state = states[stateKey];
 
-  const overlayVideoEl =
-    document.querySelector(".overlay-video") || createOverlayVideo();
-
+  // Assume transition starts here with background video changes
   backgroundVideoEl.src = state.backgroundVideo;
   backgroundVideoEl.load();
   backgroundVideoEl.oncanplaythrough = () => {
@@ -1187,50 +1128,30 @@ function changeState(stateKey, transitionLength) {
     backgroundVideoEl.style.opacity = "1";
   };
 
-  // Load and play the overlay video immediately upon state change
-  if (state.overlayVideo) {
-    overlayVideoEl.style.display = "block";
-    overlayVideoEl.src = state.overlayVideo;
-    overlayVideoEl.load();
-    overlayVideoEl.play();
-  } else {
-    overlayVideoEl.style.display = "none";
-    overlayVideoEl.src = "";
-  }
+  // Clear existing overlays
+  overlaysContainer.innerHTML = "";
 
-  overlaysContainer.innerHTML = ""; // Clear existing overlays
-
+  // Create overlays as per the new state
   if (state.clickableOverlays) {
     state.clickableOverlays.forEach((overlayConfig) => {
       createClickableOverlay(overlayConfig);
     });
   }
 
-  // Handle screen-div creation
-
-  const existingScreenDiv = triggerContainer.querySelector(".screen-div");
-  if (existingScreenDiv) {
-    triggerContainer.removeChild(existingScreenDiv);
-  }
-
-  if (state.screenDiv) {
-    const screenDiv = document.createElement("div");
-    screenDiv.className = "screen-div";
-    screenDiv.style.display = "block"; // or any other styles you want
-
-    const iframe = document.createElement("iframe");
-    iframe.src = state.screenDivSource;
-    iframe.style.width = "100%";
-    iframe.style.height = "100%";
-    // Add more styles or attributes to the iframe as needed
-
-    screenDiv.appendChild(iframe);
-    triggerContainer.appendChild(screenDiv);
-  }
-
-  // Update UI components like triggers and headlines as before
+  // Update triggers
   updateTriggers(state.triggers);
-  updateScreenDiv(state); // Call the new function to manage screen-div
+
+  setTimeout(() => {
+    updateScreenDiv(state);
+  }, transitionLength - 500);
+}
+
+// TRIGGER UPDATEN
+function updateTriggers(triggers) {
+  triggerContainer.innerHTML = "";
+  triggers.forEach((trigger) => {
+    createTrigger(trigger);
+  });
 }
 
 // SCREEN DIV CREATION
@@ -1247,40 +1168,74 @@ function updateScreenDiv(state) {
     triggerContainer.removeChild(screenDiv);
   }
 
-  // Add screen-div if required by the current state
+  // Check if the current state requires a screen-div
   if (state.screenDiv) {
+    // Create a new screen-div if required by the current state
     screenDiv = document.createElement("div");
     screenDiv.className = "screen-div";
 
-    const iframe = document.createElement("iframe");
-    iframe.src = state.screenDivSource;
-    iframe.style.width = "100%";
-    iframe.style.height = "100%";
-    iframe.setAttribute("frameborder", "0");
-    screenDiv.appendChild(iframe);
+    // Determine what type of content to create inside the screen-div
+    if (state.screenDivType === "iframe") {
+      const iframe = document.createElement("iframe");
+      iframe.src = state.screenDivSource;
+      iframe.style.width = "100%";
+      iframe.style.height = "100%";
+      iframe.setAttribute("frameborder", "0");
+      screenDiv.appendChild(iframe);
+    } else if (state.screenDivType === "video") {
+      const video = document.createElement("video");
+      video.src = state.screenDivSource;
+      video.setAttribute("controls", true);
+      video.setAttribute("autoplay", true);
+      video.setAttribute("allowfullscreen", true);
+      video.setAttribute("webkit-playsinline", "");
+      video.setAttribute("playsinline", "");
+      video.controlsList = "nodownload";
+      video.style.width = "100%";
+      video.style.height = "100%";
+      video.style.objectFit = "cover";
+      screenDiv.appendChild(video);
+    }
 
+    // Append the new screen-div to the triggerContainer
     triggerContainer.appendChild(screenDiv);
   }
 }
 
-// CREATE OVERLAY VIDEO
+// RECHTSKLICK BLOCKIEREN
 
-function createOverlayVideo() {
-  const overlayVideoEl = document.createElement("video");
-  overlayVideoEl.className = "overlay-video";
-  overlayVideoEl.autoplay = true;
-  overlayVideoEl.muted = true;
-  overlayVideoEl.loop = true;
-  videoContainer.appendChild(overlayVideoEl);
-  return overlayVideoEl;
+// Add an event listener to handle the contextmenu event
+if (screenDiv) {
+  screenDiv.addEventListener("contextmenu", function (event) {
+    // Prevent the default context menu from appearing
+    event.preventDefault();
+
+    // Log a message to the console for debugging purposes
+    console.log(
+      "Right-click has been disabled on the screen-div or its child elements."
+    );
+  });
+} else {
+  console.log("screen-div element was not found.");
 }
 
-// TRIGGER UPDATEN
-function updateTriggers(triggers) {
-  triggerContainer.innerHTML = "";
-  triggers.forEach((trigger) => {
-    createTrigger(trigger);
-  });
+// SCREEN VIDEO - ENTER FULLSCREEN
+
+function enterFullscreenVideo() {
+  const video = document.querySelector(".screen-div video");
+  if (video) {
+    if (video.requestFullscreen) {
+      video.requestFullscreen().catch((err) => {
+        console.error(
+          `Error attempting to enable full-screen mode: ${err.message} (${err.name})`
+        );
+      });
+    } else {
+      console.error("Fullscreen API is not supported by this browser.");
+    }
+  } else {
+    console.error("No video found in the current screen-div.");
+  }
 }
 
 // OVERLAY UND POPUP
@@ -1414,7 +1369,7 @@ function createTrigger(trigger) {
   triggerContainer.appendChild(buttonEl);
 }
 
-// TRIGGER _ DOWNLOAD FUNCTION
+// DOWNLOAD FUNCTION
 
 function triggerFileDownload(url) {
   // Fetch the file data using XHR or fetch API
@@ -1449,7 +1404,7 @@ function triggerFileDownload(url) {
 
 // TRIGGER CONTAINER UPDATE
 function updateTriggerContainer() {
-  const video = document.querySelector(".background-video"); // Assuming you want to match this video
+  // Assuming you want to match this video
 
   const videoAspectRatio = video.videoWidth / video.videoHeight;
   const containerAspectRatio =
