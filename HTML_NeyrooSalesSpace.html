@@ -10,9 +10,9 @@
     <div id="overlay" class="intro-overlay">
       <img
         id="logo"
-        src="https://neyroosales.space/wp-content/uploads/2024/04/Background_SalesSpace_Neyroo-scaled.jpg"
+        src="https://neyroosales.space/wp-content/uploads/2024/06/onloadImage-neyroo-generisch-1-scaled.jpg"
         ,
-        alt="debeka-Logo"
+        alt="Intro-Logo"
       />
       <button id="start-journey">Enter</button>
     </div>
@@ -26,7 +26,7 @@
           <video
             class="background-video"
             autoplay=""
-            muted=""
+            muted
             loop=""
             webkit-playsinline
             playsinline
@@ -34,52 +34,61 @@
             <source src="" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-          <video
-            class="transition-video"
-            autoplay=""
-            muted=""
-            webkit-playsinline
-            playsinline
-          >
+          <video class="transition-video" webkit-playsinline playsinline muted>
             <source src="" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
-        <div class="trigger-container"></div>
+        <div class="ux-container"></div>
+        <img id="triggerDemo" /> <img id="triggerNeyrooStudio" />
+        <img id="triggerSurprise" /> <img id="triggerPathway" />
       </div>
     </div>
 
-    <button id="muteButton" class="mute-toggle">
-      <img
-        src="https://asset.neyroo-hub.de/cc511007-cb13-430c-ab86-f76356def0e5/c196f9e1-308e-42ce-b1e7-8a5887fdf8ff/PUBLIC/f4959c87-e4eb-407d-8ded-720521c9d726/volume-on.svg?version=1"
-        alt="Mute/Unmute"
-        id="muteIcon"
-      />
-    </button>
+    <div class="footer-buttons">
+      <button id="HomeButton" class="Home-jump">
+        <img
+          src="https://salesspace.neyroo.de/wp-content/uploads/2024/04/home-icon-white.png"
+          alt="Home"
+          id="HomeButton"
+        />
+      </button>
 
-    <button id="HomeButton" class="Home-jump">
-      <img
-        src="https://salesspace.neyroo.de/wp-content/uploads/2024/04/home-icon-white.png"
-        alt="Home"
-        id="HomeButton"
-      />
-    </button>
+      <button id="NeyrooButton" class="Neyroo-website">
+        <img
+          src="https://salesspace.neyroo.de/wp-content/uploads/2024/04/neyroo-icon-white.png"
+          alt="Neyroo"
+          id="NeyrooButton"
+        />
+      </button>
 
-    <button id="DownloadButton" class="Download-button">
-      <img
-        src="https://neyroosales.space/wp-content/uploads/2024/04/download-icon-white.png"
-        alt="Download"
-        id="DownloadButton"
-      />
-    </button>
+      <button id="DownloadButton" class="Download-button">
+        <img
+          src="https://neyroosales.space/wp-content/uploads/2024/04/download-icon-white.png"
+          alt="Download"
+          id="DownloadButton"
+        />
+      </button>
 
-    <button id="NeyrooButton" class="Neyroo-website">
-      <img
-        src="https://salesspace.neyroo.de/wp-content/uploads/2024/04/neyroo-icon-white.png"
-        alt="Neyroo"
-        id="NeyrooButton"
-      />
-    </button>
+      <button id="muteButton" class="mute-toggle">
+        <img
+          src="https://asset.neyroo-hub.de/cc511007-cb13-430c-ab86-f76356def0e5/c196f9e1-308e-42ce-b1e7-8a5887fdf8ff/PUBLIC/f4959c87-e4eb-407d-8ded-720521c9d726/volume-on.svg?version=1"
+          alt="Mute/Unmute"
+          id="muteIcon"
+        />
+      </button>
+    </div>
+
+    <div class="footer-links">
+      <span onclick="window.open('https://neyroo.de/agb/', '_blank')">AGB</span>
+      <span
+        onclick="window.open('https://neyroo.de/datenschutzerklaerung/', '_blank')"
+        >Datenschutz</span
+      >
+      <span onclick="window.open('https://neyroo.de/impressum/', '_blank')"
+        >Impressum</span
+      >
+    </div>
 
     <script src="/js/script.js"></script>
   </body>

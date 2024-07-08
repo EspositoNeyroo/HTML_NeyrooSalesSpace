@@ -1,5 +1,6 @@
-/* Reset and Basic Styles */
-/* Removes default margin and padding for all elements and prevents overflow */
+/* =======================
+   RESET AND BASIC STYLES
+======================= */
 html,
 body {
   margin: 0;
@@ -8,89 +9,248 @@ body {
   background-color: black;
 }
 
-/* Video Container Styles */
-/* Defines the main video container layout and background video styles */
+/* =======================
+CONTAINER STYLES
+======================= */
 .video-container {
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
 }
 
-.background-video {
+.ux-container {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100dvw;
   height: 100%;
-  opacity: 1;
-  object-fit: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s ease-in-out;
+  text-transform: uppercase;
 }
 
-/* Transition Video Styles */
-/* Styles for transition videos with fade-in and fade-out effects */
+/* Mobile-specific grid layout for ux-container */
+@media (max-width: 768px) {
+  .ux-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: absolute;
+    bottom: 0;
+    top: auto;
+    align-items: end;
+  }
+}
+
+.button-container {
+  display: block;
+}
+
+.button-container.mobile-view {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  bottom: 11dvh;
+  width: 100dvw;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5vh;
+  height: 34vh;
+}
+
+/* =======================
+VIDEO STYLES
+======================= */
+.background-video,
 .transition-video {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0;
-  /* Initial state */
-  transition: opacity 0.5s ease-in-out;
-  /* Controls the fade-in and fade-out duration */
-  z-index: 3;
-  /* Ensure it's above other elements */
-  pointer-events: none;
   object-fit: cover;
 }
 
-/* Navigation and Interaction Elements */
-/* Back button container with positioning */
-.back-button-container {
-  position: absolute;
-  top: 20px;
-  /* Adjust as needed */
-  right: 20px;
-  /* Adjust as needed */
-  z-index: 10;
-  /* Ensure it's above other elements */
+.background-video {
+  opacity: 1;
 }
 
-#backButton {
-  padding: 10px;
-  cursor: pointer;
+.transition-video {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 3;
+  pointer-events: none;
 }
 
-/* Page Content Styles */
-/* Defines the layout for the main content area of the page */
-.page-content {
-  position: relative;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.background-video.mobile,
+.transition-video.mobile {
+  height: auto;
 }
 
-/* Interaction Triggers */
-/* Styles for elements that trigger actions, like dynamic content changes */
-.trigger-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  /* Matches the .video-container width */
+/* Overlay Video */
+.overlay-video {
+  width: 100%;
   height: 100%;
-  /* Stretches to match .video-container height dynamically */
-  display: flex;
-  justify-content: center;
-  /* Centering the child horizontally */
-  align-items: center;
-  /* Centering the child vertically */
-  transition: opacity 0.3s ease-in-out;
-  /* Smooth transition for fading */
-  text-transform: uppercase;
+  z-index: 2;
 }
 
+/* Screen Div */
+.screen-div {
+  position: absolute;
+  width: 56.2%;
+  height: 56.1%;
+  overflow: hidden;
+  border-radius: 10.3px;
+  top: 21.8%;
+  left: 22%;
+}
+
+@media (max-width: 768px) {
+  .screen-div {
+    width: 86.2%;
+    height: auto;
+    top: 29dvw;
+    left: 7dvw;
+  }
+}
+
+.screen-div video {
+  outline: none;
+}
+
+/* =======================
+FOOTER BUTTONS
+======================= */
+.footer-buttons {
+  position: absolute;
+  width: 100dvw;
+  height: 0dvh;
+  bottom: 7dvh;
+  display: none;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  gap: 6.1dvh;
+  z-index: 2;
+}
+
+.footer-buttons.show {
+  display: flex;
+}
+
+/* =======================
+BUTTON STYLES
+======================= */
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-family: "Saira", sans-serif;
+}
+
+/* Transparent Button */
+.transparent-button {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  width: 15dvw;
+  height: 6dvh;
+  position: absolute;
+  text-align: left;
+  font-size: 0.7dvw;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.transparent-button:hover {
+  box-shadow: 0 0 10px 0 #2ad2ff inset, 0 0 20px 2px #2ad2ff;
+  border: 3px solid #2ad2ff;
+}
+
+.transparent-button.highlighted {
+  box-shadow: 0 0 10px 0 #fcd54e inset, 0 0 20px 2px #fc9e4e;
+  border: 3px solid #ff8953;
+}
+
+.transparent-button.highlighted:hover {
+  box-shadow: 0 0 10px 0 #2ad2ff inset, 0 0 20px 2px #2ad2ff;
+  border: 3px solid #2ad2ff;
+}
+
+/* Mobile Button */
+.mobile-button {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  width: 80dvw;
+  height: 7dvh;
+  font-size: 1.5dvh;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.mobile-button:hover {
+  box-shadow: 0 0 10px 0 #2ad2ff inset, 0 0 20px 2px #2ad2ff;
+  border: 3px solid #2ad2ff;
+}
+
+.mobile-button.highlighted {
+  box-shadow: 0 0 10px 0 #fcd54e inset, 0 0 20px 2px #fc9e4e;
+  border: 3px solid #ff8953;
+}
+
+.mobile-button.highlighted:hover {
+  box-shadow: 0 0 10px 0 #2ad2ff inset, 0 0 20px 2px #2ad2ff;
+  border: 3px solid #2ad2ff;
+}
+
+/* #start-journey Button Styles */
+#start-journey {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  width: 15dvw;
+  height: 6dvh;
+  font-size: 1.3dvw;
+  padding: 10px 20px;
+  /* margin: 10px auto; */
+  margin-top: 8%;
+  outline: none;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  position: absolute;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 34.6dvh;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#start-journey:hover {
+  box-shadow: 0 0 10px 0 #2ad2ff inset, 0 0 20px 2px #2ad2ff;
+  border: 3px solid #2ad2ff;
+}
+
+/* Mobile responsive styles for #start-journey */
+@media (max-width: 768px) {
+  #start-journey {
+    width: 40dvw;
+    font-size: 3.1dvh;
+    padding: 2dvh 5vw;
+  }
+}
+
+/* =======================
+INTERACTION ELEMENTS
+======================= */
 .dynamic-trigger {
   width: 40px;
   height: 40px;
@@ -101,11 +261,8 @@ body {
   pointer-events: all;
   cursor: pointer;
   transition: transform 0.3s ease;
-  /* Smooth transition for the transform property */
   background: rgba(255, 255, 255, 0.5);
-  /* White, half-transparent background */
   border-radius: 50%;
-  /* Makes it a circle */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -121,36 +278,72 @@ body {
   transition: transform 0.3 ease;
 }
 
+.trigger-icon {
+  width: 7%;
+  height: auto;
+  opacity: 0.8;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
+.trigger-text {
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* =======================
+POPUP STYLES
+======================= */
 .popup {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(1);
-  width: 74vw;
+  width: 74dvw;
   height: calc(74vw * 9 / 16);
   background-color: rgb(0, 0, 0);
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
   z-index: 99999999999999;
-  overflow: hidden;
   opacity: 0;
   transition: visibility 0s linear 0.5s, opacity 0.5s ease, transform 0.5s ease;
-  border-radius: 1vh;
+  border-radius: 1dvh;
 }
 
 .popup.active {
   visibility: visible;
   opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-  border-radius: 1vh;
   z-index: 99999999999;
 }
 
+.close-container {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(1.3);
+}
+
+.close-container:hover .close-icon {
+  opacity: 1 !important;
+}
+
+.close-icon {
+  filter: drop-shadow(0px 0px 0.07vw rgba(0, 0, 0, 0.4));
+  width: 9dvh;
+  opacity: 0.75;
+  transition: opacity 0.3s ease 0s;
+}
+
+/* =======================
+BACKGROUND OVERLAY
+======================= */
 .background-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 500;
   opacity: 1;
@@ -163,11 +356,86 @@ body {
   z-index: 9999999999;
 }
 
+/* =======================
+BUTTONS AND LINKS
+======================= */
+#HomeButton,
+#NeyrooButton,
+#DownloadButton {
+  z-index: 2100;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 4dvh;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.Home-jump img,
+.Neyroo-website img,
+.Download-button img {
+  transition: transform 0.3s ease;
+}
+
+.Home-jump:hover img,
+.Neyroo-website:hover img,
+.Download-button:hover img {
+  transform: scale(1.1) !important;
+}
+
+/* =======================
+MUTE TOGGLE
+======================= */
+.mute-toggle {
+  right: 2vw;
+  bottom: 3dvh;
+  z-index: 2100;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 5dvh;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.mute-toggle img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%)
+    contrast(103%);
+}
+
+.mute-toggle:hover img {
+  transform: scale(1.1);
+}
+
+/* =======================
+BACK BUTTON
+======================= */
+.back-button-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+}
+
+#backButton {
+  padding: 10px;
+  cursor: pointer;
+}
+
 .back-button {
   background: rgba(255, 255, 255, 0.1);
   border: none;
   color: white;
-  font-size: 1vw;
+  font-size: 1dvw;
   cursor: pointer;
   padding: 15px 30px;
   margin: 10px;
@@ -178,9 +446,8 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
   position: absolute;
-  /* Ensure button positioning works as expected */
-  bottom: 1.5vh;
-  left: 1.5vw;
+  bottom: 1.5dvh;
+  left: 1.5dvw;
   display: none;
 }
 
@@ -189,62 +456,15 @@ body {
   box-shadow: 0 0 10px rgba(240, 110, 25, 0.8);
 }
 
-.transparent-button {
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  color: white;
-  width: 13vw;
-  font-size: 0.7vw;
-  padding: 10px 25px;
-  margin: 10px;
-  outline: none;
-  font-family: "Saira", sans-serif;
-  transition: all 0.3s ease;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
-  position: absolute;
-  /* Ensure button positioning works as expected */
-  text-align: center;
-  align-items: center;
-  margin-left: 30px;
-  justify-content: center;
-  /* Centering the child horizontally */
-  display: inline-block;
-}
-
-.transparent-button:hover {
-  box-shadow: 0 0 10px 0 #2ad2ff inset, 0 0 20px 2px #2ad2ff;
-  border: 3px solid #2ad2ff;
-}
-
-/* STYLES FÜR DIE GEHIGHLIGHTETEN BUTTONS */
-
-.transparent-button.highlighted {
-  box-shadow: 0 0 10px 0 #fcd54e inset, 0 0 20px 2px #fc9e4e;
-  border: 3px solid #ff8953;
-}
-
-.transparent-button.highlighted:hover {
-  box-shadow: 0 0 10px 0 #2ad2ff inset, 0 0 20px 2px #2ad2ff;
-  border: 3px solid #2ad2ff;
-}
-
-/* STYLES FÜR VIDEOCONTAINER */
-
-.video-container {
+/* =======================
+PAGE CONTENT
+======================= */
+.page-content {
   position: relative;
-}
-
-.overlay-video {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 2;
-  object-fit: cover;
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #overlay {
@@ -265,179 +485,55 @@ body {
 
 #logo {
   width: 100%;
-  /* Make the image fill the width of its container */
-  height: 100vh;
-  /* Make the image fill the height of the viewport */
+  height: auto;
   object-fit: cover;
-  /* Cover the area without breaking aspect ratio */
   display: block;
-  /* Remove any default margin or padding */
   position: absolute;
-  /* Position it relative to its nearest positioned ancestor or the viewport */
   top: 0;
   left: 0;
 }
 
-#start-journey {
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  color: white;
-  width: 8vw;
-  font-size: 1.3vw;
-  padding: 19px 25px;
-  margin: 10px;
-  margin-top: 8%;
-  outline: none;
-  font-family: "Saira", sans-serif;
-  transition: all 0.3s ease;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
+.footer-links {
   position: absolute;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  display: inline-block;
-  top: 34.6vh;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  gap: 20px;
+  margin-bottom: 0.8dvw;
+  margin-left: 3vw;
+  z-index: 100;
 }
 
-#start-journey:hover {
-  box-shadow: 0 0 10px 0 #2ad2ff inset, 0 0 20px 2px #2ad2ff;
-  border: 3px solid #2ad2ff;
-}
-
-.mute-toggle {
-  position: fixed;
-  right: 2vw;
-  bottom: 3vh;
-  z-index: 2100;
-  background: transparent;
-  border: none;
+.footer-links span {
+  color: rgba(255, 255, 255, 0.808);
+  font-family: Arial, sans-serif;
+  font-weight: 100;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   cursor: pointer;
-  width: 2vw;
-  height: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
+  font-size: 1.4vh;
+  text-transform: none;
+  transition: text-decoration 0.3s ease;
 }
 
-.mute-toggle img {
-  width: 100%;
-  height: auto;
-  transition: transform 0.3s ease;
-  /* Smooth transition for scaling */
-  /* Filter for white color - adjust as needed if your SVG isn't black */
-  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%)
-    contrast(103%);
+.footer-links span:hover {
+  text-decoration: underline;
 }
 
-.mute-toggle:hover img {
-  transform: scale(1.1);
-  /* Scale up slightly on hover */
+@media (max-width: 768px) {
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: auto;
+    bottom: 1.5dvh;
+    top: auto;
+    width: 100dvw;
+  }
 }
 
-.popup {
-  transition: opacity 0.5s ease;
-  opacity: 0;
-  /* Other styles for positioning and dimensions */
-}
-
-.close-container {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: scale(1.3);
-}
-
-.close-icon:hover {
-  opacity: 1 !important;
-  /* Override opacity on hover */
-}
-
-.screen-div {
-  position: absolute;
-  width: 56.2%;
-  height: 56.1%;
-  overflow: hidden;
-  border-radius: 10.3px;
-  top: 21.8%;
-  left: 22%;
-}
-
-#HomeButton {
-  position: fixed;
-  right: 6vw;
-  bottom: 3.6vh;
-  z-index: 2100;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  width: 1.8vw;
-  height: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-}
-
-#NeyrooButton {
-  position: fixed;
-  left: 6vw;
-  bottom: 3.6vh;
-  z-index: 2100;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  width: 2.8vw;
-  height: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-}
-
-#DownloadButton {
-  position: fixed;
-  left: 2vw;
-  bottom: 3.14vh;
-  z-index: 2100;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  width: 2.1vw;
-  height: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-}
-
-.Home-jump img {
-  transition: transform 0.3s ease;
-}
-
-.Home-jump:hover img {
-  transform: scale(1.1) !important;
-  /* Scale up slightly on hover */
-}
-
-.Neyroo-website img {
-  transition: transform 0.3s ease;
-}
-
-.Neyroo-website:hover img {
-  transform: scale(1.1) !important;
-  /* Scale up slightly on hover */
-}
-
-.Download-button img {
-  transition: transform 0.3s ease;
-}
-
-.Download-button:hover img {
-  transform: scale(1.1) !important;
-  /* Scale up slightly on hover */
+@media (max-width: 768px) {
+  .footer-links span {
+    font-size: 1vh;
+  }
 }

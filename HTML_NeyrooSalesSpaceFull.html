@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neyroo Sales Space</title>
+    <style>
+      /* =======================
+   RESET AND BASIC STYLES
+======================= */
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: black;
+      }
+
+      /* =======================
+   CONTAINER STYLES
+======================= */
+      .video-container {
+        position: relative;
+        width: 100vw;
+        height: 100dvh;
+      }
+
+      .ux-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100dvw;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: opacity 0.3s ease-in-out;
+        text-transform: uppercase;
+      }
+
+      /* Mobile-specific grid layout for ux-container */
+      @media (max-width: 768px) {
+        .ux-container {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          position: absolute;
+          bottom: 0;
+          top: auto;
+          align-items: end;
+        }
+      }
+
+      .button-container {
+        display: block;
+      }
+
+      .button-container.mobile-view {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        bottom: 11dvh;
+        width: 100dvw;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 2vh;
+      }
+
+      /* =======================
+   VIDEO STYLES
+======================= */
+      .background-video,
+      .transition-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .background-video {
+        opacity: 1;
+      }
+
+      .transition-video {
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        z-index: 3;
+        pointer-events: none;
+      }
+
+      .background-video.mobile,
+      .transition-video.mobile {
+        height: auto;
+      }
+
+      /* Overlay Video */
+      .overlay-video {
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        pointer-events: none;
+      }
+
+      /* Screen Div */
+      .screen-div {
+        position: absolute;
+        width: 56.2%;
+        height: 56.1%;
+        overflow: hidden;
+        border-radius: 10.3px;
+        top: 21.8%;
+        left: 22%;
+      }
+
+      @media (max-width: 768px) {
+        .screen-div {
+          width: 86.2%;
+          height: auto;
+          top: 29dvw;
+          left: 7dvw;
+        }
+      }
+
+      .screen-div video {
+        controls: none;
+        outline: none;
+      }
+
+      .screen-div video.show-controls::controls {
+        controls: auto;
+      }
+
+      .screen-div video::-webkit-media-controls {
+        display: none !important;
+      }
+
+      .screen-div video.show-controls::-webkit-media-controls {
+        display: block !important;
+      }
+
+      /* =======================
+   FOOTER BUTTONS
+======================= */
+      .footer-buttons {
+        position: absolute;
+        width: 100dvw;
+        height: 0dvh;
+        bottom: 5dvh;
+        display: none;
+        flex-direction: row;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        gap: 6.1dvh;
+        z-index: 2;
+      }
+
+      .footer-buttons.show {
+        display: flex;
+      }
+
+      /* =======================
+   BUTTON STYLES
+======================= */
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 20px;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        font-family: "Saira", sans-serif;
+      }
+
+      /* Transparent Button */
+      .transparent-button {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        width: 15dvw;
+        height: 6dvh;
+        position: absolute;
+        text-align: left;
+        font-size: 0.7dvw;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
+      }
+
+      .transparent-button:hover {
+        box-shadow: 0 0 10px 0 #2ad2ff inset, 0 0 20px 2px #2ad2ff;
+        border: 3px solid #2ad2ff;
+      }
+
+      .transparent-button.highlighted {
+        box-shadow: 0 0 10px 0 #fcd54e inset, 0 0 20px 2px #fc9e4e;
+        border: 3px solid #ff8953;
+      }
+
+      .transparent-button.highlighted:hover {
+        box-shadow: 0 0 10px 0 #2ad2ff inset, 0 0 20px 2px #2ad2ff;
+        border: 3px solid #2ad2ff;
+      }
+
+      /* Mobile Button */
+      .mobile-button {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        width: 80dvw;
+        height: 7.9dvh;
+        font-size: 1.8dvh;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
+      }
+
+      .mobile-button:hover {
+        box-shadow: 0 0 10px 0 #2ad2ff inset, 0 0 20px 2px #2ad2ff;
+        border: 3px solid #2ad2ff;
+      }
+
+      .mobile-button.highlighted {
+        box-shadow: 0 0 10px 0 #fcd54e inset, 0 0 20px 2px #fc9e4e;
+        border: 3px solid #ff8953;
+      }
+
+      .mobile-button.highlighted:hover {
+        box-shadow: 0 0 10px 0 #2ad2ff inset, 0 0 20px 2px #2ad2ff;
+        border: 3px solid #2ad2ff;
+      }
+
+      /* #start-journey Button Styles */
+      #start-journey {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        width: 15dvw;
+        height: 6dvh;
+        font-size: 1.3dvw;
+        padding: 10px 20px;
+        /* margin: 10px auto; */
+        margin-top: 8%;
+        outline: none;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
+        position: absolute;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 34.6dvh;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      #start-journey:hover {
+        box-shadow: 0 0 10px 0 #2ad2ff inset, 0 0 20px 2px #2ad2ff;
+        border: 3px solid #2ad2ff;
+      }
+
+      /* Mobile responsive styles for #start-journey */
+      @media (max-width: 768px) {
+        #start-journey {
+          width: 40dvw;
+          font-size: 3.1dvh;
+          padding: 2dvh 5vw;
+        }
+      }
+
+      /* =======================
+   INTERACTION ELEMENTS
+======================= */
+      .dynamic-trigger {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: all;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .dynamic-trigger:hover .icon {
+        transform: rotate(180deg);
+        transition: transform 0.25s ease;
+      }
+
+      .icon {
+        transform: scale(0.7);
+        transition: transform 0.3 ease;
+      }
+
+      .trigger-icon {
+        width: 7%;
+        height: auto;
+        opacity: 0.8;
+        vertical-align: middle;
+        margin-left: 10px;
+      }
+
+      .trigger-text {
+        text-align: left;
+        white-space: nowrap;
+      }
+
+      /* =======================
+   POPUP STYLES
+======================= */
+      .popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1);
+        width: 74dvw;
+        height: calc(74vw * 9 / 16);
+        background-color: rgb(0, 0, 0);
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+        z-index: 99999999999999;
+        opacity: 0;
+        transition: visibility 0s linear 0.5s, opacity 0.5s ease,
+          transform 0.5s ease;
+        border-radius: 1dvh;
+      }
+
+      .popup.active {
+        visibility: visible;
+        opacity: 1;
+        z-index: 99999999999;
+      }
+
+      .close-container {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: scale(1.3);
+      }
+
+      .close-container:hover .close-icon {
+        opacity: 1 !important;
+      }
+
+      .close-icon {
+        filter: drop-shadow(0px 0px 0.07vw rgba(0, 0, 0, 0.4));
+        width: 9dvh;
+        opacity: 0.75;
+        transition: opacity 0.3s ease 0s;
+      }
+
+      /* =======================
+   BACKGROUND OVERLAY
+======================= */
+      .background-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100dvh;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 500;
+        opacity: 1;
+        backdrop-filter: blur(0);
+        transition: backdrop-filter 0.5s ease;
+      }
+
+      .background-overlay.active {
+        backdrop-filter: blur(5px);
+        z-index: 9999999999;
+      }
+
+      /* =======================
+   BUTTONS AND LINKS
+======================= */
+      #HomeButton,
+      #NeyrooButton,
+      #DownloadButton {
+        z-index: 2100;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        width: 5dvh;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+      }
+
+      .Home-jump img,
+      .Neyroo-website img,
+      .Download-button img {
+        transition: transform 0.3s ease;
+      }
+
+      .Home-jump:hover img,
+      .Neyroo-website:hover img,
+      .Download-button:hover img {
+        transform: scale(1.1) !important;
+      }
+
+      /* =======================
+   MUTE TOGGLE
+======================= */
+      .mute-toggle {
+        right: 2vw;
+        bottom: 3dvh;
+        z-index: 2100;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        width: 5dvh;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+      }
+
+      .mute-toggle img {
+        width: 100%;
+        height: auto;
+        transition: transform 0.3s ease;
+        filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg)
+          brightness(103%) contrast(103%);
+      }
+
+      .mute-toggle:hover img {
+        transform: scale(1.1);
+      }
+
+      /* =======================
+   BACK BUTTON
+======================= */
+      .back-button-container {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 10;
+      }
+
+      #backButton {
+        padding: 10px;
+        cursor: pointer;
+      }
+
+      .back-button {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        color: white;
+        font-size: 1dvw;
+        cursor: pointer;
+        padding: 15px 30px;
+        margin: 10px;
+        outline: none;
+        font-family: "Saira", sans-serif;
+        transition: all 0.3s ease;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
+        position: absolute;
+        bottom: 1.5dvh;
+        left: 1.5dvw;
+        display: none;
+      }
+
+      .back-button:hover {
+        background: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 0 10px rgba(240, 110, 25, 0.8);
+      }
+
+      /* =======================
+   PAGE CONTENT
+======================= */
+      .page-content {
+        position: relative;
+        height: 100dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #overlay {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 100;
+        opacity: 1;
+        transition: opacity 0.5s ease;
+      }
+
+      #logo {
+        width: 100%;
+        height: 100dvh;
+        object-fit: cover;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="overlay" class="intro-overlay">
+      <img
+        id="logo"
+        src="https://neyroosales.space/wp-content/uploads/2024/06/onloadImage-neyroo-generisch-1-scaled.jpg"
+        ,
+        alt="Intro-Logo"
+      />
+      <button id="start-journey">Enter</button>
+    </div>
+    <div
+      class="overlays-container"
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%"
+    ></div>
+    <div class="page-content">
+      <div class="page-content">
+        <div class="video-container">
+          <video
+            class="background-video"
+            autoplay=""
+            muted
+            loop=""
+            webkit-playsinline
+            playsinline
+          >
+            <source src="" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <video class="transition-video" webkit-playsinline playsinline>
+            <source src="" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="ux-container"></div>
+        <img id="triggerGF" /> <img id="triggerCamp3" />
+        <img id="triggerSupriseToEngage" /> <img id="triggerPathway" />
+      </div>
+    </div>
+
+    <div class="footer-buttons">
+      <button id="HomeButton" class="Home-jump">
+        <img
+          src="https://salesspace.neyroo.de/wp-content/uploads/2024/04/home-icon-white.png"
+          alt="Home"
+          id="HomeButton"
+        />
+      </button>
+
+      <button id="NeyrooButton" class="Neyroo-website">
+        <img
+          src="https://salesspace.neyroo.de/wp-content/uploads/2024/04/neyroo-icon-white.png"
+          alt="Neyroo"
+          id="NeyrooButton"
+        />
+      </button>
+
+      <button id="DownloadButton" class="Download-button">
+        <img
+          src="https://neyroosales.space/wp-content/uploads/2024/04/download-icon-white.png"
+          alt="Download"
+          id="DownloadButton"
+        />
+      </button>
+
+      <button id="muteButton" class="mute-toggle">
+        <img
+          src="https://asset.neyroo-hub.de/cc511007-cb13-430c-ab86-f76356def0e5/c196f9e1-308e-42ce-b1e7-8a5887fdf8ff/PUBLIC/f4959c87-e4eb-407d-8ded-720521c9d726/volume-on.svg?version=1"
+          alt="Mute/Unmute"
+          id="muteIcon"
+        />
+      </button>
+    </div>
+    <script>
+      // =======================
+      // INITIAL SETUP
+      // =======================
+
+      const transitionVideoEl = document.querySelector(".transition-video");
+      const uxContainer = document.querySelector(".ux-container");
+
+      // Create the buttonContainer and append it to the uxContainer
+      const buttonContainer = document.createElement("div");
+      buttonContainer.classList.add("button-container");
+      uxContainer.appendChild(buttonContainer);
+
+      const backgroundVideoEl = document.querySelector(".background-video");
+      const overlaysContainer = document.querySelector(".overlays-container");
+      const videoContainer = document.querySelector(".video-container");
+      const introOverlay = document.querySelector(".intro-overlay");
+      const mediaElements = document.querySelectorAll("video, audio");
+      const videos = document.querySelectorAll("video");
+      const video = document.querySelector(".background-video");
+      const screenDiv = document.querySelector(".screen-div");
+
+      // =======================
+      // STATE MANAGEMENT
+      // =======================
+
+      // VIDEO URLS
+
+      // Transition Videos
+      const TRANSITION_VIDEOS = {
+        intro: {
+          desktop: {
+            url: "https://neyroosales.space/wp-content/uploads/2024/04/ssn-intro-transition.mp4",
+            length: 7400,
+          },
+          mobile: {
+            url: "https://neyroosales.space/wp-content/uploads/2024/06/ssn-intro-transition-mobile_reencoded.mp4",
+            length: 6000,
+          },
+        },
+        menuTurn: {
+          desktop: {
+            url: "https://neyroosales.space/wp-content/uploads/2024/04/ssn-menu-turn-transition.mp4",
+            length: 8800,
+          },
+          mobile: {
+            url: "https://neyroosales.space/wp-content/uploads/2024/06/ssn-menu-turn-transition-mobile-v2-reencoded.mp4",
+            length: 8800,
+          },
+        },
+        screenToScreen: {
+          desktop: {
+            url: "https://neyroosales.space/wp-content/uploads/2024/04/ssn-screen-to-screen-transition.mp4",
+            length: 5120,
+          },
+          mobile: {
+            url: "https://neyroosales.space/wp-content/uploads/2024/06/ssn-screen-to-screen-transition-mobile-reencoded.mp4",
+            length: 5120,
+          },
+        },
+      };
+
+      // Background Videos
+      const BACKGROUND_VIDEOS = {
+        menuLoop: {
+          desktop: {
+            url: "https://neyroosales.space/wp-content/uploads/2024/04/ssn-menu-loop.mp4",
+          },
+          mobile: {
+            url: "https://neyroosales.space/wp-content/uploads/2024/06/ssn-menu-loop-mobile-reencoded.mp4",
+          },
+        },
+        screenLoop: {
+          desktop: {
+            url: "https://neyroosales.space/wp-content/uploads/2024/04/ssn-screen-loop.mp4",
+          },
+          mobile: {
+            url: "https://neyroosales.space/wp-content/uploads/2024/06/ssn-screen-loop-mobile-reencoded.mp4",
+          },
+        },
+      };
+
+      // Screen Div Videos
+      const SCREEN_DIV_VIDEOS = {
+        pathwayExperience:
+          "https://neyroosales.space/wp-content/uploads/2024/06/gruenenthal_begruessung_bjoern-1080p.mp4",
+      };
+
+      // INTRO STATE
+      const introState = {
+        transitionVideo: TRANSITION_VIDEOS.intro,
+        targetState: "state1",
+      };
+
+      // STATES
+      const states = {
+        // STATE 01 - MENU INITIAL
+        state1: {
+          backgroundVideo: BACKGROUND_VIDEOS.menuLoop,
+          triggers: [
+            {
+              id: "trigger1",
+              order: 1,
+              position: { top: "42%", left: "5.5%" },
+              text: "Test Video",
+              transitionVideo: TRANSITION_VIDEOS.menuTurn,
+              targetState: "state2",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/Video-Icon-white-ssn.png",
+              onClick() {
+                initiateTransition(this.transitionVideo, this.targetState);
+              },
+            },
+            {
+              id: "trigger2",
+              order: 2,
+              position: { top: "42%", left: "77.5%" },
+              text: "Surprise to engage",
+              transitionVideo: TRANSITION_VIDEOS.menuTurn,
+              targetState: "state3",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/PDF-Icon-white-ssn.png",
+              onClick() {
+                initiateTransition(this.transitionVideo, this.targetState);
+              },
+            },
+            {
+              id: "triggerCamp3",
+              order: 3,
+              position: { top: "50%", left: "77.5%" },
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/URL-Icon-white.png",
+              text: "TÜV Camp3",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state4",
+              onClick() {
+                window
+                  .open("https://camp3.tuv.com/de-DE/camp3/campfire", "_blank")
+                  .focus();
+              },
+            },
+            {
+              id: "triggerGF",
+              order: 4,
+              position: { top: "50%", left: "5.5%" },
+              text: "GF Hydrogen Space",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state5",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/URL-Icon-white.png",
+              onClick() {
+                window
+                  .open(
+                    "https://eventcampus.gfps.com/de-DE/connection-for-live/gf-hydrogen-world-en",
+                    "_blank"
+                  )
+                  .focus();
+              },
+            },
+          ],
+        },
+        // STATE 02 - TEST VIDEO
+        state2: {
+          backgroundVideo: BACKGROUND_VIDEOS.screenLoop,
+          screenDiv: true,
+          screenDivType: "video",
+          screenDivSource: SCREEN_DIV_VIDEOS.pathwayExperience,
+          screenDivMobileSource: SCREEN_DIV_VIDEOS.pathwayExperience,
+          screenDivMobileSourceType: "video",
+          screenDivMobilePopupType: "video",
+          screenDivMobilePopupSource: SCREEN_DIV_VIDEOS.pathwayExperience,
+          triggers: [
+            {
+              id: "trigger1",
+              position: { top: "42%", left: "2%" },
+              text: "Test Video Vollbild",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              highlighted: 1,
+              targetState: "state2",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/PDF-Icon-white-ssn.png",
+              onClick() {
+                enterFullscreenVideo();
+              },
+            },
+            {
+              id: "trigger2",
+              position: { top: "42%", left: "82%" },
+              text: "Surprise to engage",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state3",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/PDF-Icon-white-ssn.png",
+              onClick() {
+                initiateTransition(this.transitionVideo, this.targetState);
+              },
+            },
+            {
+              id: "triggerCamp3",
+              position: { top: "50%", left: "82%" },
+              text: "TÜV Camp3",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state4",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/URL-Icon-white.png",
+              onClick() {
+                window
+                  .open("https://camp3.tuv.com/de-DE/camp3/campfire", "_blank")
+                  .focus();
+              },
+            },
+            {
+              id: "triggerGF",
+              position: { top: "50%", left: "2%" },
+              text: "GF Hydrogen Space",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state4",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/URL-Icon-white.png",
+              onClick() {
+                window
+                  .open(
+                    "https://eventcampus.gfps.com/de-DE/connection-for-live/gf-hydrogen-world-en",
+                    "_blank"
+                  )
+                  .focus();
+              },
+            },
+          ],
+        },
+        // STATE 03 - SURPRISE TO ENGAGE
+        state3: {
+          backgroundVideo: BACKGROUND_VIDEOS.screenLoop,
+          screenDiv: true,
+          screenDivType: "iframe",
+          screenDivSource:
+            "https://neyroosales.space/wp-content/uploads/2024/05/Surprise-to-Engage.pdf",
+          screenDivMobileSource:
+            "https://neyroosales.space/wp-content/uploads/2024/06/thumbnails-screen-ssn-pdf.jpg",
+          screenDivMobileSourceType: "image",
+          screenDivMobilePopupType: "iframe",
+          screenDivMobilePopupSource:
+            "https://neyroosales.space/wp-content/uploads/2024/05/Surprise-to-Engage.pdf",
+          triggers: [
+            {
+              id: "trigger1",
+              position: { top: "42%", left: "2%" },
+              text: "Test Video",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state2",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/Video-Icon-white-ssn.png",
+              size: { width: "40%", height: "40%" },
+              onClick() {
+                initiateTransition(this.transitionVideo, this.targetState);
+              },
+            },
+            {
+              id: "trigger2",
+              position: { top: "42%", left: "82%" },
+              text: "Surprise to engage Download",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              highlighted: 1,
+              targetState: "state3",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/PDF-Icon-white-ssn.png",
+              onClick() {
+                triggerFileDownload(
+                  "https://neyroosales.space/wp-content/uploads/2024/04/Surprise-to-Engage.pdf"
+                );
+              },
+            },
+            {
+              id: "triggerCamp3",
+              position: { top: "50%", left: "82%" },
+              text: "TÜV Camp3",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state4",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/URL-Icon-white.png",
+              onClick() {
+                window
+                  .open("https://camp3.tuv.com/de-DE/camp3/campfire", "_blank")
+                  .focus();
+              },
+            },
+            {
+              id: "triggerGF",
+              position: { top: "50%", left: "2%" },
+              text: "GF Hydrogen Space",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state5",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/URL-Icon-white.png",
+              onClick() {
+                window
+                  .open(
+                    "https://eventcampus.gfps.com/de-DE/connection-for-live/gf-hydrogen-world-en",
+                    "_blank"
+                  )
+                  .focus();
+              },
+            },
+          ],
+        },
+      };
+
+      // =======================
+      // EVENT LISTENERS SETUP
+      // =======================
+
+      document
+        .getElementById("HomeButton")
+        .addEventListener("click", function () {
+          startJourney(); // This will trigger the same actions as the start-journey click
+        });
+
+      document
+        .getElementById("NeyrooButton")
+        .addEventListener("click", function () {
+          window.open("https://www.neyroo.de", "_blank");
+        });
+
+      document
+        .getElementById("DownloadButton")
+        .addEventListener("click", function () {
+          const downloadUrl =
+            "https://neyroosales.space/wp-content/uploads/2024/06/Download-Sammlung-Neyroo.zip";
+          triggerFileDownload(downloadUrl);
+        });
+
+      // =======================
+      // BACKGROUND SOUND SETUP
+      // =======================
+
+      let backgroundSound = null;
+      let isSoundPlaying = false;
+
+      function initializeBackgroundSound() {
+        if (!backgroundSound) {
+          backgroundSound = new Audio(
+            "https://salesspace.neyroo.de/wp-content/uploads/2024/06/MA_FTUS_DarkLongDrones_LOW_BLEND.aac"
+          );
+          backgroundSound.loop = true;
+          backgroundSound.setAttribute("playsinline", "true"); // Ensure inline playback on iOS
+          backgroundSound.volume = 1.0; // Ensure volume is set to maximum
+
+          backgroundSound.addEventListener("play", () => {
+            console.log("Background sound is playing.");
+          });
+
+          backgroundSound.addEventListener("pause", () => {
+            console.log("Background sound is paused.");
+          });
+        }
+      }
+
+      const audioContext = new (window.AudioContext ||
+        window.webkitAudioContext)();
+      console.log("AudioContext state:", audioContext.state);
+
+      function startBackgroundSound() {
+        if (audioContext.state === "suspended") {
+          console.log("AudioContext is suspended, resuming now...");
+          audioContext.resume().then(() => {
+            console.log("AudioContext resumed");
+            playBackgroundSound();
+          });
+        } else {
+          console.log("AudioContext is not suspended, playing sound...");
+          playBackgroundSound();
+        }
+      }
+
+      function playBackgroundSound() {
+        if (backgroundSound) {
+          backgroundSound
+            .play()
+            .then(() => {
+              console.log("Background sound started successfully.");
+              isSoundPlaying = true;
+            })
+            .catch((error) => {
+              console.error("Error playing sound:", error);
+              alert(
+                "Audio playback failed. Please check your browser settings."
+              );
+            });
+        }
+      }
+
+      let currentState = introState; // or any other initial state
+
+      // =======================
+      // RESPONSIVE STYLES
+      // =======================
+
+      function applyResponsiveStyles() {
+        const backgroundVideoEl = document.querySelector(".background-video");
+        const transitionVideoEl = document.querySelector(".transition-video");
+
+        const isLandscape = window.innerWidth > window.innerHeight;
+        const isMobileView = window.innerWidth < 768 && !isLandscape;
+
+        if (isMobileView) {
+          // Apply mobile styles
+          backgroundVideoEl.classList.add("mobile");
+          transitionVideoEl.classList.add("mobile");
+
+          // Stop and remove the background sound
+          if (backgroundSound && isSoundPlaying) {
+            backgroundSound.pause();
+            backgroundSound = null;
+            isSoundPlaying = false;
+          }
+        } else {
+          // Apply desktop styles
+          backgroundVideoEl.classList.remove("mobile");
+          transitionVideoEl.classList.remove("mobile");
+
+          // Add and play the background sound
+          initializeBackgroundSound();
+          startBackgroundSound();
+        }
+
+        // Update the background video source based on the current state
+        if (currentState && currentState.backgroundVideo) {
+          const newSrc = getVideoSource(currentState.backgroundVideo);
+          if (backgroundVideoEl.src !== newSrc.url) {
+            backgroundVideoEl.src = newSrc.url;
+            backgroundVideoEl.load(); // Ensure the video is reloaded with the new source
+            backgroundVideoEl.play(); // Autoplay the video if necessary
+          }
+        }
+      }
+
+      applyResponsiveStyles();
+      window.addEventListener("resize", applyResponsiveStyles);
+
+      function getVideoSource(videoObj) {
+        return window.innerWidth < 768 ? videoObj.mobile : videoObj.desktop;
+      }
+
+      // =======================
+      // START JOURNEY
+      // =======================
+
+      document.getElementById("start-journey").addEventListener("click", () => {
+        console.log("Start Journey button clicked.");
+
+        audioContext
+          .resume()
+          .then(() => {
+            console.log("AudioContext resumed.");
+            startBackgroundSound();
+          })
+          .catch((error) => {
+            console.error("Error resuming AudioContext:", error);
+            alert(
+              "AudioContext resume failed. Please check your browser settings."
+            );
+          });
+
+        startJourney();
+      });
+
+      function startJourney() {
+        // Start the fade-out effect
+        introOverlay.style.opacity = "0";
+
+        // Wait for the fade-out to complete before hiding the overlay and starting the journey
+        setTimeout(() => {
+          introOverlay.style.display = "none";
+          introOverlay.remove();
+          initiateTransition(
+            introState.transitionVideo,
+            introState.targetState,
+            true
+          );
+        }, 500); // Matches the CSS transition duration
+      }
+
+      // =======================
+      // TRANSITION FUNCTION
+      // =======================
+
+      function initiateTransition(transitionVideoSrc, nextState) {
+        const isMobileView = window.innerWidth < 768;
+        const videoConfig = isMobileView
+          ? transitionVideoSrc.mobile
+          : transitionVideoSrc.desktop;
+        const videoSrc = videoConfig.url;
+        const transitionLength = videoConfig.length;
+        const fadeDuration = 500;
+
+        if (currentState === introState) {
+          introOverlay.style.opacity = "0";
+        } else {
+          uxContainer.style.opacity = "0";
+        }
+
+        togglePointerEvents([uxContainer, overlaysContainer], false);
+        transitionVideoEl.src = videoSrc;
+        transitionVideoEl.setAttribute("playsinline", "true");
+        transitionVideoEl.setAttribute("muted", "true"); // Ensure the video is muted for autoplay
+        transitionVideoEl.load();
+
+        const playPromise = transitionVideoEl.play();
+        if (playPromise !== undefined) {
+          playPromise.catch((error) => {
+            console.error("Error playing transition video:", error);
+            const fallbackMessage = document.createElement("div");
+            fallbackMessage.classList.add("fallback-message");
+            fallbackMessage.innerText = "Click to play the video";
+            transitionVideoEl.parentElement.appendChild(fallbackMessage);
+            fallbackMessage.addEventListener("click", () => {
+              transitionVideoEl.play().then(() => {
+                fallbackMessage.remove();
+              });
+            });
+          });
+        }
+
+        transitionVideoEl.style.opacity = "1";
+        setTimeout(() => {
+          changeState(nextState);
+        }, transitionLength - 800);
+
+        setTimeout(() => {
+          transitionVideoEl.style.opacity = "0";
+          if (currentState === introState) {
+            introOverlay.style.display = "none";
+            introOverlay.remove();
+          } else {
+            uxContainer.style.opacity = "1";
+          }
+        }, transitionLength - fadeDuration);
+
+        setTimeout(() => {
+          transitionVideoEl.src = "";
+          togglePointerEvents([uxContainer, overlaysContainer], true);
+          updateuxContainer();
+
+          // Show the footer buttons after the transition is complete
+          document.querySelector(".footer-buttons").classList.add("show");
+        }, transitionLength);
+      }
+
+      // =======================
+      // STATE CHANGE FUNCTION
+      // =======================
+
+      function changeState(stateKey) {
+        const state = states[stateKey];
+        const backgroundVideoConfig = getVideoSource(state.backgroundVideo);
+        const backgroundVideoSrc = backgroundVideoConfig.url;
+        currentState = state;
+
+        backgroundVideoEl.src = backgroundVideoSrc;
+        backgroundVideoEl.setAttribute("playsinline", "true");
+        backgroundVideoEl.setAttribute("muted", "true"); // Ensure the video is muted for autoplay
+        backgroundVideoEl.load();
+        backgroundVideoEl.oncanplaythrough = () => {
+          backgroundVideoEl.play();
+          backgroundVideoEl.style.opacity = "1";
+        };
+
+        overlaysContainer.innerHTML = "";
+
+        if (state.clickableOverlays) {
+          state.clickableOverlays.forEach((overlayConfig) => {
+            createClickableOverlay(overlayConfig);
+          });
+        }
+
+        updateTriggers(state.triggers);
+
+        setTimeout(function () {
+          updateScreenDiv(state);
+          // Ensure AudioContext is resumed for sound playback
+          audioContext
+            .resume()
+            .then(() => {
+              console.log("AudioContext resumed for state change.");
+            })
+            .catch((error) => {
+              console.error("Error resuming AudioContext:", error);
+            });
+        }, 0);
+      }
+
+      // =======================
+      // SCREEN DIV CREATION
+      // =======================
+
+      function updateScreenDiv(state) {
+        if (!uxContainer) {
+          console.error(
+            "Trigger container not found. Cannot manage screen-div."
+          );
+          return;
+        }
+
+        // Remove existing screen-div if present
+        let screenDiv = uxContainer.querySelector(".screen-div");
+        if (screenDiv) {
+          uxContainer.removeChild(screenDiv);
+        }
+
+        // Check if the current state requires a screen-div
+        if (state.screenDiv) {
+          // Create a new screen-div if required by the current state
+          screenDiv = document.createElement("div");
+          screenDiv.className = "screen-div";
+
+          // Determine what type of content to create inside the screen-div
+          const isLandscape = window.innerWidth > window.innerHeight;
+          const isMobileView = window.innerWidth < 768 && !isLandscape;
+          let source, sourceType, popupType, popupSource;
+
+          if (isMobileView) {
+            source = state.screenDivMobileSource;
+            sourceType = state.screenDivMobileSourceType;
+            popupType = state.screenDivMobilePopupType;
+            popupSource = state.screenDivMobilePopupSource;
+          } else {
+            source = state.screenDivSource;
+            sourceType = state.screenDivType;
+            popupType = state.screenDivType;
+            popupSource = state.screenDivSource;
+          }
+
+          if (isMobileView && sourceType === "video") {
+            const img = document.createElement("img");
+            img.src =
+              "https://neyroosales.space/wp-content/uploads/2024/06/thumbnails-screen-ssn-video.jpg";
+            img.style.width = "100%";
+            img.style.height = "100%";
+            img.style.objectFit = "cover";
+            img.addEventListener("click", () => {
+              const video = document.createElement("video");
+              video.src = source;
+              video.setAttribute("preload", "auto");
+              video.setAttribute("autoplay", "autoplay");
+              video.setAttribute("loop", "loop");
+              video.setAttribute("playsinline", "playsinline");
+              video.setAttribute("allowfullscreen", true);
+              video.setAttribute("webkit-playsinline", "");
+              video.style.width = "100%";
+              video.style.height = "100%";
+              video.style.objectFit = "cover";
+              video.controlsList = "nodownload";
+
+              // Initially hide the controls
+              video.controls = false;
+
+              video.addEventListener("play", () => {
+                if (backgroundSound) backgroundSound.pause();
+              });
+              video.addEventListener("pause", () => {
+                if (backgroundSound) backgroundSound.play();
+              });
+
+              // Add event listener to show controls on first touch and then behave normally
+              const showControlsOnFirstTouch = () => {
+                video.controls = true;
+                video.removeEventListener(
+                  "touchstart",
+                  showControlsOnFirstTouch
+                );
+              };
+              video.addEventListener("touchstart", showControlsOnFirstTouch);
+
+              // Replace the image with the video element and play it with sound
+              screenDiv.innerHTML = ""; // Clear the screen div content
+              screenDiv.appendChild(video);
+
+              video.play().catch((error) => {
+                console.error("Error attempting to play the video:", error);
+              });
+            });
+            screenDiv.appendChild(img);
+          } else if (sourceType === "video") {
+            const video = document.createElement("video");
+            video.src = source;
+            video.setAttribute("preload", "auto");
+            video.setAttribute("autoplay", "autoplay");
+            video.setAttribute("loop", "loop");
+            video.setAttribute("muted", "muted");
+            video.setAttribute("playsinline", "playsinline");
+            video.setAttribute("allowfullscreen", true);
+            video.setAttribute("webkit-playsinline", "");
+            video.controlsList = "nodownload";
+            video.style.width = "100%";
+            video.style.height = "100%";
+            video.style.objectFit = "cover";
+            video.addEventListener("play", () => {
+              if (backgroundSound) backgroundSound.pause();
+            });
+            video.addEventListener("pause", () => {
+              if (backgroundSound) backgroundSound.play();
+            });
+
+            // Ensure the video is played after it's ready
+            video.addEventListener("canplaythrough", () => {
+              video.play().catch((error) => {
+                console.error("Error attempting to play the video:", error);
+              });
+            });
+
+            screenDiv.appendChild(video);
+          } else if (sourceType === "image") {
+            const img = document.createElement("img");
+            img.src = source;
+            img.style.width = "100%";
+            img.style.height = "100%";
+            img.style.objectFit = "cover";
+            img.addEventListener("click", () => {
+              window.open(popupSource, "_blank");
+            });
+            screenDiv.appendChild(img);
+          } else if (sourceType === "iframe") {
+            const iframe = document.createElement("iframe");
+            iframe.src = source;
+            iframe.style.width = "100%";
+            iframe.style.height = "100%";
+            iframe.setAttribute("frameborder", "0");
+            screenDiv.appendChild(iframe);
+          }
+
+          // Append the new screen-div to the uxContainer
+          uxContainer.appendChild(screenDiv);
+        }
+      }
+
+      // =======================
+      // MUTE/UNMUTE BUTTON
+      // =======================
+
+      let isMuted = false;
+
+      document
+        .getElementById("muteButton")
+        .addEventListener("click", function () {
+          const videos = document.querySelectorAll("video");
+          const muteIcon = document.getElementById("muteIcon");
+
+          // Toggle mute state
+          isMuted = !isMuted;
+
+          // Update the mute state for all videos and the background sound
+          videos.forEach((video) => {
+            video.muted = isMuted;
+          });
+
+          if (backgroundSound) {
+            backgroundSound.muted = isMuted;
+          }
+
+          // Update the mute button icon
+          muteIcon.src = isMuted
+            ? "https://asset.neyroo-hub.de/cc511007-cb13-430c-ab86-f76356def0e5/c196f9e1-308e-42ce-b1e7-8a5887fdf8ff/PUBLIC/8fcbb006-8315-4d55-8492-b89e2f7f30bc/volume-mute.svg?version=1"
+            : "https://asset.neyroo-hub.de/cc511007-cb13-430c-ab86-f76356def0e5/c196f9e1-308e-42ce-b1e7-8a5887fdf8ff/PUBLIC/f4959c87-e4eb-407d-8ded-720521c9d726/volume-on.svg?version=1";
+        });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const videos = document.querySelectorAll("video");
+        const muteIcon = document.getElementById("muteIcon");
+
+        // Set initial mute state for all videos and background sound
+        videos.forEach((video) => {
+          video.muted = isMuted;
+        });
+
+        if (backgroundSound) {
+          backgroundSound.muted = isMuted;
+        }
+
+        // Set initial mute button icon
+        muteIcon.src = isMuted
+          ? "https://asset.neyroo-hub.de/cc511007-cb13-430c-ab86-f76356def0e5/c196f9e1-308e-42ce-b1e7-8a5887fdf8ff/PUBLIC/8fcbb006-8315-4d55-8492-b89e2f7f30bc/volume-mute.svg?version=1"
+          : "https://asset.neyroo-hub.de/cc511007-cb13-430c-ab86-f76356def0e5/c196f9e1-308e-42ce-b1e7-8a5887fdf8ff/PUBLIC/f4959c87-e4eb-407d-8ded-720521c9d726/volume-on.svg?version=1";
+      });
+
+      // =======================
+      // CLICKABLE OVERLAYS
+      // =======================
+
+      function createClickableOverlay(config) {
+        const overlay = document.createElement("div");
+        overlay.id = config.id;
+        overlay.style.position = "absolute";
+        overlay.style.top = config.position.top;
+        overlay.style.left = config.position.left;
+        overlay.style.width = config.size.width;
+        overlay.style.height = config.size.height;
+        overlay.style.cursor = "pointer";
+        overlay.style.zIndex = 10; // Ensure it's above the video but below other UI elements
+        overlay.style.backgroundColor = "rgba(0,0,0,0)"; // Transparent
+
+        overlay.addEventListener("click", config.onClick);
+
+        document.querySelector(".overlays-container").appendChild(overlay);
+      }
+
+      // =======================
+      // TRIGGERS SETUP
+      // =======================
+
+      function createTrigger(trigger) {
+        const buttonEl = document.createElement("button");
+
+        const isLandscape = window.innerWidth > window.innerHeight;
+        const isMobileView = window.innerWidth < 768 && !isLandscape;
+
+        if (isMobileView) {
+          // Mobile layout
+          buttonEl.classList.add("mobile-button");
+          if (trigger.order !== undefined) {
+            buttonEl.style.order = trigger.order;
+          }
+        } else {
+          // Desktop layout
+          buttonEl.classList.add("transparent-button");
+          buttonEl.style.top = trigger.position.top;
+          buttonEl.style.left = trigger.position.left;
+        }
+
+        const textEl = document.createElement("span");
+        textEl.innerText = trigger.text;
+        textEl.classList.add("trigger-text");
+        buttonEl.appendChild(textEl);
+
+        if (trigger.icon) {
+          const imgEl = document.createElement("img");
+          imgEl.src = trigger.icon;
+          imgEl.alt = `${trigger.text} Icon`;
+          imgEl.classList.add("trigger-icon");
+          buttonEl.appendChild(imgEl);
+        }
+
+        if (trigger.highlighted === 1) {
+          buttonEl.classList.add("highlighted");
+        }
+
+        buttonEl.addEventListener("click", (event) => {
+          trigger.onClick.call(trigger, event);
+          // Ensure the video plays on click
+          const playPromise = transitionVideoEl.play();
+          if (playPromise !== undefined) {
+            playPromise.catch((error) => {
+              console.error("Error attempting to play the video:", error);
+            });
+          }
+        });
+
+        buttonContainer.appendChild(buttonEl);
+      }
+
+      function updateTriggers(triggers) {
+        buttonContainer.innerHTML = "";
+
+        const isLandscape = window.innerWidth > window.innerHeight;
+        const isMobileView = window.innerWidth < 768 && !isLandscape;
+
+        if (isMobileView) {
+          // Sort triggers by mobile order if on mobile
+          triggers.sort(
+            (a, b) =>
+              (a.order ?? triggers.indexOf(a)) -
+              (b.order ?? triggers.indexOf(b))
+          );
+          buttonContainer.classList.add("mobile-view");
+        } else {
+          // Reset styles for desktop view
+          buttonContainer.classList.remove("mobile-view");
+          updateuxContainer(); // Ensure the container is updated for desktop layout
+        }
+
+        triggers.forEach((trigger) => createTrigger(trigger));
+      }
+
+      // =======================
+      // UX CONTAINER UPDATE
+      // =======================
+
+      function updateuxContainer() {
+        const isMobileView = window.innerWidth < 768;
+        const styles = uxContainer.style;
+
+        if (isMobileView) {
+          // Clear styles in mobile view
+          Object.assign(styles, {
+            position: "",
+            top: "",
+            left: "",
+            width: "",
+            height: "",
+          });
+          return;
+        }
+
+        const videoAspectRatio = video.videoWidth / video.videoHeight;
+        const containerWidth = videoContainer.offsetWidth;
+        const containerHeight = videoContainer.offsetHeight;
+        const containerAspectRatio = containerWidth / containerHeight;
+
+        let width, height;
+
+        if (containerAspectRatio > videoAspectRatio) {
+          // Container is wider than video
+          width = containerWidth;
+          height = width / videoAspectRatio;
+        } else {
+          // Container is taller than video
+          height = containerHeight;
+          width = height * videoAspectRatio;
+        }
+
+        const leftOffset = (containerWidth - width) / 2;
+        const topOffset = (containerHeight - height) / 2;
+
+        Object.assign(styles, {
+          position: "absolute",
+          top: `${topOffset}px`,
+          left: `${leftOffset}px`,
+          width: `${width}px`,
+          height: `${height}px`,
+        });
+      }
+
+      // =======================
+      // DOWNLOAD FUNCTION
+      // =======================
+
+      function triggerFileDownload(url) {
+        const downloadLink = document.createElement("a");
+        downloadLink.href = url;
+        downloadLink.setAttribute("download", "");
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+      }
+
+      // =======================
+      // ELEMENTS POINTER EVENTS TOGGLE
+      // =======================
+
+      function togglePointerEvents(elements, enable) {
+        const pointerEventsValue = enable ? "" : "none";
+        elements.forEach((element) => {
+          element.style.pointerEvents = pointerEventsValue;
+        });
+      }
+
+      // =======================
+      // RESIZE HANDLER
+      // =======================
+
+      function combinedResizeHandler() {
+        updateuxContainer();
+        updateTriggers(currentState.triggers);
+      }
+
+      window.addEventListener("resize", combinedResizeHandler);
+
+      // =======================
+      // SCREEN VIDEO - ENTER FULLSCREEN
+      // =======================
+
+      function enterFullscreenVideo() {
+        const video = document.querySelector(".screen-div video");
+        if (video) {
+          if (video.requestFullscreen) {
+            video.requestFullscreen().catch((err) => {
+              console.error(
+                `Error attempting to enable full-screen mode: ${err.message} (${err.name})`
+              );
+            });
+          } else if (video.webkitEnterFullScreen) {
+            // Safari on iOS
+            video.webkitEnterFullScreen().catch((err) => {
+              console.error(
+                `Error attempting to enable full-screen mode: ${err.message} (${err.name})`
+              );
+            });
+          } else {
+            console.error("Fullscreen API is not supported by this browser.");
+          }
+        } else {
+          console.error("No video found in the current screen-div.");
+        }
+      }
+
+      // =======================
+      // OVERLAY AND POPUP
+      // =======================
+
+      function showOverlay() {
+        const overlay = document.createElement("div");
+        overlay.classList.add("background-overlay");
+        document.body.appendChild(overlay);
+        overlay.style.display = "block";
+        setTimeout(() => overlay.classList.add("active"), 0);
+        return overlay;
+      }
+
+      function showPopup(url, type) {
+        const overlay = showOverlay();
+        const popup = document.createElement("div");
+        popup.classList.add("popup");
+        popup.style.opacity = "0"; // Start with popup invisible for the transition effect
+
+        if (type === "video" || type === "image" || window.innerWidth < 768) {
+          popup.style.width = "93dvw";
+          popup.style.height = "91dvh";
+          popup.style.borderRadius = "0";
+
+          if (type === "video") {
+            backgroundSound.volume = 0;
+          }
+        }
+
+        let innerHTML;
+        if (type === "video") {
+          innerHTML = `<iframe width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" sandbox="allow-forms allow-same-origin allow-scripts allow-popups" src="${url}"></iframe>`;
+        } else if (type === "image") {
+          innerHTML = `<img src="${url}" style="width: 100%; height: 100%; object-fit: cover;">`;
+        } else if (type === "iframe") {
+          innerHTML = `<iframe width="100%" height="100%" frameborder="0" allow="fullscreen" src="${url}" style="width: 100%; height: 100%;"></iframe>`;
+        }
+
+        if (
+          type === "video" ||
+          type === "image" ||
+          type === "iframe" ||
+          window.innerWidth < 768
+        ) {
+          innerHTML += `
+    <div class="close-container info-close-container">
+        <img src="https://asset.neyroo-hub.de/cc511007-cb13-430c-ab86-f76356def0e5/c196f9e1-308e-42ce-b1e7-8a5887fdf8ff/PUBLIC/238cc16b-ef5f-4853-a135-72694ea2c70a/circle-xmark-regular-v3.svg?version=1" class="close-icon info-close-icon">
+      </div>`;
+        }
+
+        popup.innerHTML = innerHTML;
+        document.body.appendChild(popup);
+
+        setTimeout(() => (popup.style.opacity = "1"), 10);
+
+        if (
+          type === "video" ||
+          type === "image" ||
+          type === "iframe" ||
+          window.innerWidth < 768
+        ) {
+          const closeContainer = popup.querySelector(".close-container");
+
+          closeContainer.addEventListener("click", () => {
+            popup.style.opacity = "0";
+            setTimeout(() => {
+              document.body.removeChild(popup);
+              document.body.removeChild(overlay);
+
+              if (type === "video") {
+                backgroundSound.volume = 1;
+              }
+            }, 500);
+          });
+
+          closeContainer.addEventListener(
+            "mouseover",
+            () =>
+              (closeContainer.querySelector(".close-icon").style.opacity = "1")
+          );
+          closeContainer.addEventListener(
+            "mouseout",
+            () =>
+              (closeContainer.querySelector(".close-icon").style.opacity =
+                "0.3")
+          );
+        }
+
+        overlay.addEventListener("click", function () {
+          popup.style.opacity = "0";
+          setTimeout(() => {
+            document.body.removeChild(popup);
+            document.body.removeChild(overlay);
+
+            if (type === "video") {
+              backgroundSound.volume = 1;
+            }
+          }, 500);
+        });
+      }
+
+      // =======================
+      // RIGHT CLICK DISABLE
+      // =======================
+
+      if (screenDiv) {
+        screenDiv.addEventListener("contextmenu", function (event) {
+          event.preventDefault();
+          console.log(
+            "Right-click has been disabled on the screen-div or its child elements."
+          );
+        });
+      } else {
+        console.log("screen-div element was not found.");
+      }
+    </script>
+  </body>
+</html>
