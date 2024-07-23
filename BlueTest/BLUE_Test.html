@@ -3,19 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Zelda Style Dialog</title>
+    <title>Dialog</title>
     <style>
-      html,
+      :root {
+        --background-color: black;
+        --dialog-background: rgba(0, 0, 0, 0.55);
+        --text-color: white;
+        --blur-intensity: 10px;
+        --transition-speed: 0.5s;
+      }
+
       body {
         margin: 0;
         padding: 0;
         overflow: hidden;
-        background-color: black;
+        background-color: var(--background-color);
         display: flex;
         justify-content: center;
-        /* position: absolute; */
-        /* width: 100vw; */
-        /* height: 100vh; */
+        align-items: center;
+        height: 100vh;
       }
 
       #background {
@@ -29,6 +35,18 @@
         z-index: 0;
       }
 
+      #dialog-system {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+      }
+
       #blurdiv {
         position: absolute;
         top: 0;
@@ -36,24 +54,23 @@
         width: 100%;
         height: 100%;
         background-color: rgba(0, 0, 0, 0);
-        -webkit-backdrop-filter: blur(10px); /* Safari support */
-        backdrop-filter: blur(10px);
-        transition: -webkit-backdrop-filter 0.5s ease-in-out,
-          backdrop-filter 0.5s ease-in-out, background-color 0.5s ease-in-out;
+        backdrop-filter: blur(var(--blur-intensity));
+        transition: backdrop-filter var(--transition-speed) ease-in-out,
+          background-color var(--transition-speed) ease-in-out;
         z-index: 1;
-        display: none; /* Hide initially */
+        display: none;
       }
 
       #dialog-container {
         position: relative;
         width: 90%;
+        max-width: 600px;
         height: 90dvh;
-        display: flex;
+        display: flex; /* Already set, no need to redefine */
         flex-direction: column;
         justify-content: flex-end;
         z-index: 2;
         display: none;
-        /* margin: auto; */
       }
 
       @keyframes popCharacter {
@@ -100,20 +117,21 @@
         width: 100%;
         height: 50%;
         object-fit: cover;
-        transform: scale(0);
         opacity: 0;
+        transition: opacity var(--transition-speed) ease-in-out;
       }
 
       #character-video.show {
+        opacity: 1;
         animation: popUp 0.5s ease-in-out forwards;
       }
 
       #dialog-box {
         width: 100%;
         height: 50dvh;
-        background-color: rgb(0 0 0 / 55%);
-        color: white;
-        font-family: "Arial", sans-serif;
+        background-color: var(--dialog-background);
+        color: var(--text-color);
+        font-family: Arial, sans-serif;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -123,10 +141,13 @@
         opacity: 0;
         transform: scaleX(0);
         transform-origin: center;
+        transition: opacity var(--transition-speed) ease-in-out,
+          transform var(--transition-speed) ease-in-out;
       }
 
       #dialog-box.show {
-        animation: expandWidth 0.5s ease-in-out forwards;
+        opacity: 1;
+        transform: scaleX(1);
       }
 
       #dialog-text {
@@ -142,7 +163,8 @@
         left: 20px;
         padding: 10px 20px;
         font-size: 1em;
-        z-index: 0;
+        z-index: 2;
+        cursor: pointer;
       }
 
       #next-indicator {
@@ -152,45 +174,34 @@
         transform: translateX(-50%);
         width: 15px;
         height: 15px;
-        background-color: transparent; /* Make the background transparent */
-        border: 2px solid white; /* Add a border to create the circle */
+        background-color: transparent;
+        border: 2px solid var(--text-color);
         border-radius: 50%;
         opacity: 0;
         animation: pulsate 1.5s infinite;
-        pointer-events: none; /* Ensure it does not interfere with clicks */
+        pointer-events: none;
       }
 
       @keyframes pulsate {
         0% {
-          transform: translateX(-50%) scale(1);
+          transform: scale(1);
         }
         50% {
-          transform: translateX(-50%) scale(1.2);
+          transform: scale(1.2);
         }
         100% {
-          transform: translateX(-50%) scale(1);
+          transform: scale(1);
         }
       }
 
-      /* Desktop sizes - styles applied for larger screens */
       @media screen and (min-width: 1024px) {
         #character-video {
-          width: 100%;
           height: 75%;
-          object-fit: cover;
-          transform: scale(0);
-          opacity: 0;
         }
 
         #dialog-container {
-          position: relative;
           width: 60%;
           height: 90vh;
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-end;
-          z-index: 2;
-          display: none;
           margin: auto;
         }
       }
@@ -198,136 +209,173 @@
   </head>
   <body>
     <div id="background"></div>
-    <div id="blurdiv"></div>
-    <div id="dialog-container">
-      <video id="character-video" autoplay loop muted playsinline>
-        <source
-          src="https://neyroospace.de/wp-content/uploads/2024/07/Tuev_Sprechanimation_Blue_Alpha_h265.mov"
-          type="video/quicktime;codecs=hvc1"
-        />
-        <source
-          src="https://neyroospace.de/wp-content/uploads/2024/07/output-vp9.webm"
-          type="video/webm"
-        />
-      </video>
-      <div id="dialog-box">
-        <p id="dialog-text"></p>
-        <div id="next-indicator"></div>
-      </div>
-    </div>
-    <button id="trigger-dialog" onclick="showDialog('greeting')">
-      Start Dialog
-    </button>
+    <button id="trigger-dialog" aria-label="Start Dialog">Start Dialog</button>
 
     <script>
+      // Data structure to hold dialogues
       const dialogues = {
-        greeting: {
-          1: "Hallo!<br> Schön, dass du da bist!",
-          2: "Ich habe dich schon sehnsüchtig erwartet, ich brauche nämlich dringend deine Hilfe!",
-          3: "Ich habe diesen rätselhaften Ort entdeckt, eine scheinbar verlassene Anlage.",
-          4: "Nachdem ich mit meinen Sensoren alles nach Hinweisen gescannt habe, muss es sich um eine stillgelegte Energiezentrale handeln.",
-        },
-        farewell: {
-          1: "Goodbye! Thanks for stopping by.",
-          2: "See you next time!",
-        },
+        greeting: [
+          "Hallo!<br> Schön, dass du da bist!",
+          "Ich habe dich schon sehnsüchtig erwartet, ich brauche nämlich dringend deine Hilfe!",
+          "Ich habe diesen rätselhaften Ort entdeckt, eine scheinbar verlassene Anlage.",
+          "Nachdem ich mit meinen Sensoren alles nach Hinweisen gescannt habe, muss es sich um eine stillgelegte Energiezentrale handeln.",
+        ],
+        farewell: ["Goodbye! Thanks for stopping by.", "See you next time!"],
       };
 
-      let currentText = "";
+      // State variables
       let currentIndex = 0;
       let isTyping = false;
       let pages = [];
       let currentPageIndex = 0;
 
-      const dialogBox = document.getElementById("dialog-box");
-      const dialogText = document.getElementById("dialog-text");
-      const blurDiv = document.getElementById("blurdiv");
-      const dialogContainer = document.getElementById("dialog-container");
-      const characterVideo = document.getElementById("character-video");
-      const nextIndicator = document.getElementById("next-indicator");
+      // DOM elements
+      const triggerDialogButton = document.getElementById("trigger-dialog");
 
-      document.getElementById("dialog-box").addEventListener("click", () => {
-        if (!isTyping) {
-          showNextDialogue();
+      // Function to create and insert the dialog-system
+      function createDialogSystem() {
+        // Create container and its content
+        const dialogSystem = document.createElement("div");
+        dialogSystem.id = "dialog-system";
+
+        const blurDiv = document.createElement("div");
+        blurDiv.id = "blurdiv";
+
+        const dialogContainer = document.createElement("div");
+        dialogContainer.id = "dialog-container";
+
+        const characterVideo = document.createElement("video");
+        characterVideo.id = "character-video";
+        characterVideo.autoplay = true;
+        characterVideo.loop = true;
+        characterVideo.muted = true;
+        characterVideo.playsInline = true;
+
+        const source1 = document.createElement("source");
+        source1.src =
+          "https://neyroospace.de/wp-content/uploads/2024/07/Tuev_Sprechanimation_Blue_Alpha_h265.mov";
+        source1.type = "video/quicktime;codecs=hvc1";
+        characterVideo.appendChild(source1);
+
+        const source2 = document.createElement("source");
+        source2.src =
+          "https://neyroospace.de/wp-content/uploads/2024/07/output-vp9.webm";
+        source2.type = "video/webm";
+        characterVideo.appendChild(source2);
+
+        const dialogBox = document.createElement("div");
+        dialogBox.id = "dialog-box";
+
+        const dialogText = document.createElement("p");
+        dialogText.id = "dialog-text";
+        dialogBox.appendChild(dialogText);
+
+        const nextIndicator = document.createElement("div");
+        nextIndicator.id = "next-indicator";
+        dialogBox.appendChild(nextIndicator);
+
+        dialogContainer.appendChild(characterVideo);
+        dialogContainer.appendChild(dialogBox);
+        dialogSystem.appendChild(blurDiv);
+        dialogSystem.appendChild(dialogContainer);
+
+        document.body.appendChild(dialogSystem);
+
+        // Set up event listeners
+        dialogBox.addEventListener("click", () => {
+          if (!isTyping) showNextDialogue();
+        });
+      }
+
+      // Function to remove the dialog-system
+      function removeDialogSystem() {
+        const dialogSystem = document.getElementById("dialog-system");
+        if (dialogSystem) {
+          document.body.removeChild(dialogSystem);
         }
-      });
+      }
 
-      const textStartDelay = 500; // Delay for text start in milliseconds
-      const textBuildupSpeed = 15; // Text buildup speed in milliseconds per character
-
+      // Initialize dialog display
       function showDialog(id) {
-        if (dialogues[id]) {
-          const dialogue = dialogues[id];
-          dialogBox.style.display = "flex";
-          blurDiv.style.display = "block";
-          dialogContainer.style.display = "flex";
+        const dialogue = dialogues[id];
+        if (!dialogue) return;
 
-          setTimeout(() => {
-            blurDiv.style.backdropFilter = "blur(10px)";
-            blurDiv.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-            characterVideo.classList.add("show"); // Add the show class to trigger animation
-            dialogBox.classList.add("show"); // Add the show class to dialog-box to trigger animation
-          }, 10); // Small delay to trigger transition
-
-          dialogText.innerHTML = "";
-          currentIndex = 0;
-          pages = Object.values(dialogue);
-          currentPageIndex = 0;
-
-          setTimeout(typeText, 1000 + textStartDelay); // 0.5s for animation + textStartDelay (500ms)
-        }
+        createDialogSystem();
+        setupDialogUI();
+        pages = dialogue;
+        currentPageIndex = 0;
+        setTimeout(() => typeText(pages[currentPageIndex]), 1000); // Initial delay
       }
 
-      function typeText() {
+      // Setup initial UI for the dialog
+      function setupDialogUI() {
+        const dialogBox = document.getElementById("dialog-box");
+        const blurDiv = document.getElementById("blurdiv");
+        const dialogContainer = document.getElementById("dialog-container");
+        const characterVideo = document.getElementById("character-video");
+        const nextIndicator = document.getElementById("next-indicator");
+
+        dialogBox.style.display = "flex";
+        blurDiv.style.display = "block";
+        dialogContainer.style.display = "flex";
+
+        requestAnimationFrame(() => {
+          blurDiv.style.backdropFilter = "blur(var(--blur-intensity))";
+          blurDiv.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+          characterVideo.classList.add("show");
+          dialogBox.classList.add("show");
+        });
+
+        const dialogText = document.getElementById("dialog-text");
+        dialogText.innerHTML = "";
+        currentIndex = 0;
+      }
+
+      // Function to handle typing effect
+      function typeText(text) {
+        let displayText = "";
         isTyping = true;
-        nextIndicator.style.opacity = 0; // Hide the indicator while typing
-        const pageText = pages[currentPageIndex];
-        if (currentIndex < pageText.length) {
-          const nextChar =
-            pageText.charAt(currentIndex) === "<"
-              ? pageText.slice(currentIndex).match(/<[^>]*>/)[0]
-              : pageText.charAt(currentIndex);
-          const charElement = document.createElement("span");
-          charElement.innerHTML = nextChar;
-          charElement.classList.add("character");
-          dialogText.appendChild(charElement);
-          currentIndex += nextChar.length;
-          setTimeout(typeText, textBuildupSpeed);
-        } else {
-          // Replace the individual character spans with a single span without the "character" class
-          const fullPageText = pages[currentPageIndex];
-          dialogText.innerHTML = `<span>${fullPageText}</span>`;
-          isTyping = false;
-          nextIndicator.style.opacity = 1; // Show the indicator when typing is done
+        const nextIndicator = document.getElementById("next-indicator");
+        nextIndicator.style.opacity = 0;
+
+        function typeNextChar() {
+          if (currentIndex < text.length) {
+            displayText += text[currentIndex];
+            document.getElementById("dialog-text").innerHTML = displayText;
+            currentIndex++;
+            requestAnimationFrame(typeNextChar);
+          } else {
+            document.getElementById("dialog-text").innerHTML = text;
+            isTyping = false;
+            nextIndicator.style.opacity = 1;
+          }
         }
+
+        requestAnimationFrame(typeNextChar);
       }
 
-      function finishTyping() {
-        dialogText.innerHTML = pages[currentPageIndex];
-        isTyping = false;
-      }
-
+      // Show the next dialogue or hide dialog if finished
       function showNextDialogue() {
         if (currentPageIndex < pages.length - 1) {
           currentPageIndex++;
           currentIndex = 0;
-          dialogText.innerHTML = "";
-          nextIndicator.style.opacity = 0; // Hide the indicator while typing the new page
-          setTimeout(typeText, textStartDelay);
+          document.getElementById("dialog-text").innerHTML = "";
+          document.getElementById("next-indicator").style.opacity = 0;
+          setTimeout(() => typeText(pages[currentPageIndex]), 500); // Delay before next text
         } else {
-          dialogBox.style.display = "none";
-          blurDiv.style.backdropFilter = "blur(0px)";
-          blurDiv.style.backgroundColor = "rgba(0, 0, 0, 0)";
-          blurDiv.style.display = "none";
-          dialogContainer.style.display = "none";
-          characterVideo.classList.remove("show"); // Remove the show class to reset animation
-          dialogBox.classList.remove("show"); // Remove the show class to reset animation
-          nextIndicator.style.opacity = 0; // Hide the indicator when dialogue ends
+          hideDialogElements();
         }
       }
 
-      // Initial setup
-      dialogBox.style.display = "none";
+      // Hide dialog elements
+      function hideDialogElements() {
+        removeDialogSystem();
+      }
+
+      // Trigger dialog on button click
+      triggerDialogButton.addEventListener("click", () => {
+        showDialog("greeting");
+      });
     </script>
   </body>
 </html>
