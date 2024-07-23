@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zelda Style Dialog</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        /* position: absolute; */
+        /* width: 100vw; */
+        /* height: 100vh; */
+      }
+
+      #background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("https://neyroospace.de/wp-content/uploads/2024/07/BG_BLUETEST.png")
+          no-repeat center center/cover;
+        z-index: 0;
+      }
+
+      #blurdiv {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0);
+        -webkit-backdrop-filter: blur(10px); /* Safari support */
+        backdrop-filter: blur(10px);
+        transition: -webkit-backdrop-filter 0.5s ease-in-out,
+          backdrop-filter 0.5s ease-in-out, background-color 0.5s ease-in-out;
+        z-index: 1;
+        display: none; /* Hide initially */
+      }
+
+      #dialog-container {
+        position: relative;
+        width: 90%;
+        height: 90dvh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        z-index: 2;
+        display: none;
+        /* margin: auto; */
+      }
+
+      @keyframes popCharacter {
+        0% {
+          transform: scale(1.5);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .character {
+        display: inline-block;
+        animation: popCharacter 0.2s ease-in-out forwards;
+      }
+
+      @keyframes popUp {
+        0% {
+          transform: scale(0);
+          opacity: 0;
+        }
+        50% {
+          transform: scale(1.1);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      @keyframes expandWidth {
+        0% {
+          transform: scaleX(0);
+          opacity: 0;
+        }
+        100% {
+          transform: scaleX(1);
+          opacity: 1;
+        }
+      }
+
+      #character-video {
+        width: 100%;
+        height: 50%;
+        object-fit: cover;
+        transform: scale(0);
+        opacity: 0;
+      }
+
+      #character-video.show {
+        animation: popUp 0.5s ease-in-out forwards;
+      }
+
+      #dialog-box {
+        width: 100%;
+        height: 50dvh;
+        background-color: rgb(0 0 0 / 55%);
+        color: white;
+        font-family: "Arial", sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5vh;
+        box-sizing: border-box;
+        border-radius: 3vh;
+        opacity: 0;
+        transform: scaleX(0);
+        transform-origin: center;
+      }
+
+      #dialog-box.show {
+        animation: expandWidth 0.5s ease-in-out forwards;
+      }
+
+      #dialog-text {
+        font-size: 1.5em;
+        white-space: pre-wrap;
+        text-align: center;
+        pointer-events: none;
+      }
+
+      #trigger-dialog {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        padding: 10px 20px;
+        font-size: 1em;
+        z-index: 0;
+      }
+
+      #next-indicator {
+        position: absolute;
+        bottom: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 15px;
+        height: 15px;
+        background-color: transparent; /* Make the background transparent */
+        border: 2px solid white; /* Add a border to create the circle */
+        border-radius: 50%;
+        opacity: 0;
+        animation: pulsate 1.5s infinite;
+        pointer-events: none; /* Ensure it does not interfere with clicks */
+      }
+
+      @keyframes pulsate {
+        0% {
+          transform: translateX(-50%) scale(1);
+        }
+        50% {
+          transform: translateX(-50%) scale(1.2);
+        }
+        100% {
+          transform: translateX(-50%) scale(1);
+        }
+      }
+
+      /* Desktop sizes - styles applied for larger screens */
+      @media screen and (min-width: 1024px) {
+        #character-video {
+          width: 100%;
+          height: 75%;
+          object-fit: cover;
+          transform: scale(0);
+          opacity: 0;
+        }
+
+        #dialog-container {
+          position: relative;
+          width: 60%;
+          height: 90vh;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          z-index: 2;
+          display: none;
+          margin: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="background"></div>
+    <div id="blurdiv"></div>
+    <div id="dialog-container">
+      <video id="character-video" autoplay loop muted playsinline>
+        <source
+          src="https://neyroospace.de/wp-content/uploads/2024/07/Tuev_Sprechanimation_Blue_Alpha_h265.mov"
+          type="video/quicktime;codecs=hvc1"
+        />
+        <source
+          src="https://neyroospace.de/wp-content/uploads/2024/07/output-vp9.webm"
+          type="video/webm"
+        />
+      </video>
+      <div id="dialog-box">
+        <p id="dialog-text"></p>
+        <div id="next-indicator"></div>
+      </div>
+    </div>
+    <button id="trigger-dialog" onclick="showDialog('greeting')">
+      Start Dialog
+    </button>
+
+    <script>
+      const dialogues = {
+        greeting: {
+          1: "Hallo!<br> Schön, dass du da bist!",
+          2: "Ich habe dich schon sehnsüchtig erwartet, ich brauche nämlich dringend deine Hilfe!",
+          3: "Ich habe diesen rätselhaften Ort entdeckt, eine scheinbar verlassene Anlage.",
+          4: "Nachdem ich mit meinen Sensoren alles nach Hinweisen gescannt habe, muss es sich um eine stillgelegte Energiezentrale handeln.",
+        },
+        farewell: {
+          1: "Goodbye! Thanks for stopping by.",
+          2: "See you next time!",
+        },
+      };
+
+      let currentText = "";
+      let currentIndex = 0;
+      let isTyping = false;
+      let pages = [];
+      let currentPageIndex = 0;
+
+      const dialogBox = document.getElementById("dialog-box");
+      const dialogText = document.getElementById("dialog-text");
+      const blurDiv = document.getElementById("blurdiv");
+      const dialogContainer = document.getElementById("dialog-container");
+      const characterVideo = document.getElementById("character-video");
+      const nextIndicator = document.getElementById("next-indicator");
+
+      document.getElementById("dialog-box").addEventListener("click", () => {
+        if (!isTyping) {
+          showNextDialogue();
+        }
+      });
+
+      const textStartDelay = 500; // Delay for text start in milliseconds
+      const textBuildupSpeed = 15; // Text buildup speed in milliseconds per character
+
+      function showDialog(id) {
+        if (dialogues[id]) {
+          const dialogue = dialogues[id];
+          dialogBox.style.display = "flex";
+          blurDiv.style.display = "block";
+          dialogContainer.style.display = "flex";
+
+          setTimeout(() => {
+            blurDiv.style.backdropFilter = "blur(10px)";
+            blurDiv.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+            characterVideo.classList.add("show"); // Add the show class to trigger animation
+            dialogBox.classList.add("show"); // Add the show class to dialog-box to trigger animation
+          }, 10); // Small delay to trigger transition
+
+          dialogText.innerHTML = "";
+          currentIndex = 0;
+          pages = Object.values(dialogue);
+          currentPageIndex = 0;
+
+          setTimeout(typeText, 1000 + textStartDelay); // 0.5s for animation + textStartDelay (500ms)
+        }
+      }
+
+      function typeText() {
+        isTyping = true;
+        nextIndicator.style.opacity = 0; // Hide the indicator while typing
+        const pageText = pages[currentPageIndex];
+        if (currentIndex < pageText.length) {
+          const nextChar =
+            pageText.charAt(currentIndex) === "<"
+              ? pageText.slice(currentIndex).match(/<[^>]*>/)[0]
+              : pageText.charAt(currentIndex);
+          const charElement = document.createElement("span");
+          charElement.innerHTML = nextChar;
+          charElement.classList.add("character");
+          dialogText.appendChild(charElement);
+          currentIndex += nextChar.length;
+          setTimeout(typeText, textBuildupSpeed);
+        } else {
+          // Replace the individual character spans with a single span without the "character" class
+          const fullPageText = pages[currentPageIndex];
+          dialogText.innerHTML = `<span>${fullPageText}</span>`;
+          isTyping = false;
+          nextIndicator.style.opacity = 1; // Show the indicator when typing is done
+        }
+      }
+
+      function finishTyping() {
+        dialogText.innerHTML = pages[currentPageIndex];
+        isTyping = false;
+      }
+
+      function showNextDialogue() {
+        if (currentPageIndex < pages.length - 1) {
+          currentPageIndex++;
+          currentIndex = 0;
+          dialogText.innerHTML = "";
+          nextIndicator.style.opacity = 0; // Hide the indicator while typing the new page
+          setTimeout(typeText, textStartDelay);
+        } else {
+          dialogBox.style.display = "none";
+          blurDiv.style.backdropFilter = "blur(0px)";
+          blurDiv.style.backgroundColor = "rgba(0, 0, 0, 0)";
+          blurDiv.style.display = "none";
+          dialogContainer.style.display = "none";
+          characterVideo.classList.remove("show"); // Remove the show class to reset animation
+          dialogBox.classList.remove("show"); // Remove the show class to reset animation
+          nextIndicator.style.opacity = 0; // Hide the indicator when dialogue ends
+        }
+      }
+
+      // Initial setup
+      dialogBox.style.display = "none";
+    </script>
+  </body>
+</html>

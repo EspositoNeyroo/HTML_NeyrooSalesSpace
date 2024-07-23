@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Neyroo Sales Space</title>
+    <title>Neyroo SSN</title>
     <style>
       /* =======================
    RESET AND BASIC STYLES
@@ -17,7 +17,7 @@
       }
 
       /* =======================
-   CONTAINER STYLES
+CONTAINER STYLES
 ======================= */
       .video-container {
         position: relative;
@@ -62,11 +62,12 @@
         width: 100dvw;
         align-items: center;
         justify-content: flex-end;
-        gap: 2vh;
+        gap: 0.5vh;
+        height: 34vh;
       }
 
       /* =======================
-   VIDEO STYLES
+VIDEO STYLES
 ======================= */
       .background-video,
       .transition-video {
@@ -99,7 +100,6 @@
         width: 100%;
         height: 100%;
         z-index: 2;
-        pointer-events: none;
       }
 
       /* Screen Div */
@@ -123,30 +123,17 @@
       }
 
       .screen-div video {
-        controls: none;
         outline: none;
       }
 
-      .screen-div video.show-controls::controls {
-        controls: auto;
-      }
-
-      .screen-div video::-webkit-media-controls {
-        display: none !important;
-      }
-
-      .screen-div video.show-controls::-webkit-media-controls {
-        display: block !important;
-      }
-
       /* =======================
-   FOOTER BUTTONS
+FOOTER BUTTONS
 ======================= */
       .footer-buttons {
         position: absolute;
         width: 100dvw;
         height: 0dvh;
-        bottom: 5dvh;
+        bottom: 7dvh;
         display: none;
         flex-direction: row;
         align-content: center;
@@ -161,7 +148,7 @@
       }
 
       /* =======================
-   BUTTON STYLES
+BUTTON STYLES
 ======================= */
       button {
         display: flex;
@@ -209,8 +196,8 @@
         background: rgba(255, 255, 255, 0.1);
         color: white;
         width: 80dvw;
-        height: 7.9dvh;
-        font-size: 1.8dvh;
+        height: 7dvh;
+        font-size: 1.5dvh;
         border: 1px solid rgba(255, 255, 255, 0.3);
         backdrop-filter: blur(10px);
       }
@@ -269,7 +256,7 @@
       }
 
       /* =======================
-   INTERACTION ELEMENTS
+INTERACTION ELEMENTS
 ======================= */
       .dynamic-trigger {
         width: 40px;
@@ -312,7 +299,7 @@
       }
 
       /* =======================
-   POPUP STYLES
+POPUP STYLES
 ======================= */
       .popup {
         position: fixed;
@@ -357,7 +344,7 @@
       }
 
       /* =======================
-   BACKGROUND OVERLAY
+BACKGROUND OVERLAY
 ======================= */
       .background-overlay {
         position: fixed;
@@ -378,7 +365,7 @@
       }
 
       /* =======================
-   BUTTONS AND LINKS
+BUTTONS AND LINKS
 ======================= */
       #HomeButton,
       #NeyrooButton,
@@ -387,7 +374,7 @@
         background: transparent;
         border: none;
         cursor: pointer;
-        width: 5dvh;
+        width: 4dvh;
         height: auto;
         display: flex;
         align-items: center;
@@ -408,7 +395,7 @@
       }
 
       /* =======================
-   MUTE TOGGLE
+MUTE TOGGLE
 ======================= */
       .mute-toggle {
         right: 2vw;
@@ -438,7 +425,7 @@
       }
 
       /* =======================
-   BACK BUTTON
+BACK BUTTON
 ======================= */
       .back-button-container {
         position: absolute;
@@ -478,7 +465,7 @@
       }
 
       /* =======================
-   PAGE CONTENT
+PAGE CONTENT
 ======================= */
       .page-content {
         position: relative;
@@ -506,15 +493,61 @@
 
       #logo {
         width: 100%;
-        height: 100dvh;
+        height: auto;
         object-fit: cover;
         display: block;
         position: absolute;
         top: 0;
         left: 0;
       }
+
+      .footer-links {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        gap: 20px;
+        margin-bottom: 0.8dvw;
+        margin-left: 3vw;
+        z-index: 100;
+      }
+
+      .footer-links span {
+        color: rgba(255, 255, 255, 0.808);
+        font-family: Arial, sans-serif;
+        font-weight: 100;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        cursor: pointer;
+        font-size: 1.4vh;
+        text-transform: none;
+        transition: text-decoration 0.3s ease;
+      }
+
+      .footer-links span:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 768px) {
+        .footer-links {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          grid-template-columns: 1fr 1fr 1fr;
+          margin: auto;
+          bottom: 1.5dvh;
+          top: auto;
+          width: 100dvw;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .footer-links span {
+          font-size: 1vh;
+        }
+      }
     </style>
   </head>
+
   <body>
     <div id="overlay" class="intro-overlay">
       <img
@@ -543,14 +576,14 @@
             <source src="" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-          <video class="transition-video" webkit-playsinline playsinline>
+          <video class="transition-video" webkit-playsinline playsinline muted>
             <source src="" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
         <div class="ux-container"></div>
-        <img id="triggerGF" /> <img id="triggerCamp3" />
-        <img id="triggerSupriseToEngage" /> <img id="triggerPathway" />
+        <img id="triggerDemo" /> <img id="triggerNeyrooStudio" />
+        <img id="triggerSurprise" /> <img id="triggerPathway" />
       </div>
     </div>
 
@@ -587,7 +620,565 @@
         />
       </button>
     </div>
+
+    <div class="footer-links">
+      <span onclick="window.open('https://neyroo.de/agb/', '_blank')">AGB</span>
+      <span
+        onclick="window.open('https://neyroo.de/datenschutzerklaerung/', '_blank')"
+        >Datenschutz</span
+      >
+      <span onclick="window.open('https://neyroo.de/impressum/', '_blank')"
+        >Impressum</span
+      >
+    </div>
+
     <script>
+      // =======================
+      // STATE MANAGEMENT
+      // =======================
+
+      // VIDEO URLS
+
+      // Transition Videos
+      const TRANSITION_VIDEOS = {
+        intro: {
+          desktop: {
+            url: "https://neyroosales.space/wp-content/uploads/2024/04/ssn-intro-transition.mp4",
+            length: 7400,
+          },
+          mobile: {
+            url: "https://neyroosales.space/wp-content/uploads/2024/07/SSN_Mobile_Intro_SFX.mp4",
+            length: 6000,
+          },
+        },
+        logoToScreen: {
+          desktop: {
+            url: "https://neyroosales.space/wp-content/uploads/2024/04/ssn-menu-turn-transition.mp4",
+            length: 8800,
+          },
+          mobile: {
+            url: "https://neyroosales.space/wp-content/uploads/2024/07/SSN_Mobile_LogoToScreen_SFX.mp4",
+            length: 8800,
+          },
+        },
+        screenToScreen: {
+          desktop: {
+            url: "https://neyroosales.space/wp-content/uploads/2024/04/ssn-screen-to-screen-transition.mp4",
+            length: 5120,
+          },
+          mobile: {
+            url: "https://neyroosales.space/wp-content/uploads/2024/07/SSN-screen-to-screen-transition-mobile-reencoded_SFX.mp4",
+            length: 5120,
+          },
+        },
+      };
+
+      // Background Videos
+      const BACKGROUND_VIDEOS = {
+        menuLoop: {
+          desktop: {
+            url: "https://neyroosales.space/wp-content/uploads/2024/04/ssn-menu-loop.mp4",
+          },
+          mobile: {
+            url: "https://neyroosales.space/wp-content/uploads/2024/07/ssn-menu-loop-mobile-reencoded.mp4",
+          },
+        },
+        screenLoop: {
+          desktop: {
+            url: "https://neyroosales.space/wp-content/uploads/2024/04/ssn-screen-loop.mp4",
+          },
+          mobile: {
+            url: "https://neyroosales.space/wp-content/uploads/2024/07/ssn-screen-loop-mobile-reencoded.mp4",
+          },
+        },
+      };
+
+      // Screen Div Videos
+      const SCREEN_DIV_VIDEOS = {
+        Begrüßung:
+          "https://neyroosales.space/wp-content/uploads/2024/06/gruenenthal_begruessung_bjoern-1080p.mp4",
+        NeyrooFilm:
+          "https://neyroosales.space/wp-content/uploads/2024/04/neyroo–welcome.mp4",
+      };
+
+      // INTRO STATE
+      const introState = {
+        transitionVideo: TRANSITION_VIDEOS.intro,
+        targetState: "state1",
+      };
+
+      // STATES
+      const states = {
+        // STATE 01 - MENU INITIAL
+        state1: {
+          backgroundVideo: BACKGROUND_VIDEOS.menuLoop,
+          triggers: [
+            {
+              id: "trigger1",
+              order: 1,
+              position: { top: "42%", left: "5.5%" },
+              text: "Begrüßung",
+              transitionVideo: TRANSITION_VIDEOS.logoToScreen,
+              targetState: "state2",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/Video-Icon-white-ssn.png",
+              onClick() {
+                initiateTransition(this.transitionVideo, this.targetState);
+              },
+            },
+            {
+              id: "triggerPathway",
+              order: 2,
+              position: { top: "50%", left: "5.5%" },
+              text: "Pathway Experience",
+
+              transitionVideo: TRANSITION_VIDEOS.logoToScreen,
+              targetState: "state3",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/PDF-Icon-white-ssn.png",
+              onClick() {
+                initiateTransition(this.transitionVideo, this.targetState);
+              },
+            },
+
+            {
+              id: "triggerSurprise",
+              order: 3,
+              position: { top: "58%", left: "5.5%" },
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/PDF-Icon-white-ssn.png",
+              text: "Surprise to engage",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state4",
+              onClick() {
+                initiateTransition(this.transitionVideo, this.targetState);
+              },
+            },
+
+            {
+              id: "trigger4",
+              order: 4,
+              position: { top: "42%", left: "82%" },
+              text: "Neyroo Film",
+              transitionVideo: TRANSITION_VIDEOS.logoToScreen,
+              targetState: "state5",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/Video-Icon-white-ssn.png",
+              onClick() {
+                initiateTransition(this.transitionVideo, this.targetState);
+              },
+            },
+            {
+              id: "triggerNeyrooStudio",
+              order: 5,
+              position: { top: "50%", left: "82%" },
+              text: "Neyroo Studio",
+              transitionVideo: TRANSITION_VIDEOS.logoToScreen,
+              targetState: "state6",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/URL-Icon-white.png",
+              onClick() {
+                window
+                  .open("https://neyroostudio.neyroo.de/", "_blank")
+                  .focus();
+              },
+            },
+            {
+              id: "triggerDemo",
+              order: 6,
+              position: { top: "58%", left: "82%" },
+              text: "Demo Spatial Chat",
+              transitionVideo: TRANSITION_VIDEOS.logoToScreen,
+              targetState: "state7",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/URL-Icon-white.png",
+              onClick() {
+                window
+                  .open("https://neyroostudio.neyroo.de/", "_blank")
+                  .focus();
+              },
+            },
+          ],
+        },
+
+        // STATE 02 - Begrüßung
+        state2: {
+          backgroundVideo: BACKGROUND_VIDEOS.screenLoop,
+          screenDiv: true,
+          screenDivType: "video",
+          screenDivSource: SCREEN_DIV_VIDEOS.Begrüßung,
+          screenDivMobileSource: SCREEN_DIV_VIDEOS.Begrüßung,
+          screenDivMobileSourceType: "video",
+          screenDivMobilePopupType: "video",
+          screenDivMobilePopupSource: SCREEN_DIV_VIDEOS.Begrüßung,
+          triggers: [
+            {
+              id: "trigger1",
+              order: 1,
+              position: { top: "42%", left: "2%" },
+              text: "Begrüßung (Vollbild)",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state2",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/Video-Icon-white-ssn.png",
+              onClick() {
+                enterFullscreenVideo();
+              },
+            },
+            {
+              id: "triggerPathway",
+              order: 2,
+              position: { top: "50%", left: "2%" },
+              text: "Pathway Experience",
+
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state3",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/PDF-Icon-white-ssn.png",
+              onClick() {
+                initiateTransition(this.transitionVideo, this.targetState);
+              },
+            },
+
+            {
+              id: "triggerSurprise",
+              order: 3,
+              position: { top: "58%", left: "2%" },
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/PDF-Icon-white-ssn.png",
+              text: "Surprise to engage",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state4",
+              onClick() {
+                initiateTransition(this.transitionVideo, this.targetState);
+              },
+            },
+
+            {
+              id: "trigger4",
+              order: 4,
+              position: { top: "42%", left: "82%" },
+              text: "Neyroo Film",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state5",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/Video-Icon-white-ssn.png",
+              onClick() {
+                initiateTransition(this.transitionVideo, this.targetState);
+              },
+            },
+            {
+              id: "triggerNeyrooStudio",
+              order: 5,
+              position: { top: "50%", left: "82%" },
+              text: "Neyroo Studio",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state6",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/URL-Icon-white.png",
+              onClick() {
+                window
+                  .open("https://neyroostudio.neyroo.de/", "_blank")
+                  .focus();
+              },
+            },
+            {
+              id: "triggerDemo",
+              order: 6,
+              position: { top: "58%", left: "82%" },
+              text: "Demo Spatial Chat",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state7",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/URL-Icon-white.png",
+              onClick() {
+                window
+                  .open("https://neyroostudio.neyroo.de/", "_blank")
+                  .focus();
+              },
+            },
+          ],
+        },
+
+        // STATE 03 - Pathway Experience
+        state3: {
+          backgroundVideo: BACKGROUND_VIDEOS.screenLoop,
+          screenDiv: true,
+          screenDivType: "iframe",
+          screenDivSource:
+            "https://neyroosales.space/wp-content/uploads/2024/05/Pathway-by-Neyroo.pdf",
+          screenDivMobileSource:
+            "https://neyroosales.space/wp-content/uploads/2024/06/thumbnails-screen-ssn-pdf.jpg",
+          screenDivMobileSourceType: "image",
+          screenDivMobilePopupType: "iframe",
+          screenDivMobilePopupSource:
+            "https://neyroosales.space/wp-content/uploads/2024/05/Pathway-by-Neyroo.pdf",
+          triggers: [
+            {
+              id: "trigger1",
+              order: 1,
+              position: { top: "42%", left: "2%" },
+              text: "Begrüßung",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state2",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/Video-Icon-white-ssn.png",
+              onClick() {
+                initiateTransition(this.transitionVideo, this.targetState);
+              },
+            },
+            {
+              id: "triggerPathway",
+              order: 2,
+              position: { top: "50%", left: "2%" },
+              text: "Pathway Experience Download",
+
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state3",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/PDF-Icon-white-ssn.png",
+              onClick() {
+                triggerFileDownload(
+                  "https://neyroosales.space/wp-content/uploads/2024/05/Pathway-by-Neyroo.pdf"
+                );
+              },
+            },
+
+            {
+              id: "triggerSurprise",
+              order: 3,
+              position: { top: "58%", left: "2%" },
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/PDF-Icon-white-ssn.png",
+              text: "Surprise to engage",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state4",
+              onClick() {
+                initiateTransition(this.transitionVideo, this.targetState);
+              },
+            },
+
+            {
+              id: "trigger4",
+              order: 4,
+              position: { top: "42%", left: "82%" },
+              text: "Neyroo Film",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state5",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/Video-Icon-white-ssn.png",
+              onClick() {
+                initiateTransition(this.transitionVideo, this.targetState);
+              },
+            },
+            {
+              id: "triggerNeyrooStudio",
+              order: 5,
+              position: { top: "50%", left: "82%" },
+              text: "Neyroo Studio",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state6",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/URL-Icon-white.png",
+              onClick() {
+                window
+                  .open("https://neyroostudio.neyroo.de/", "_blank")
+                  .focus();
+              },
+            },
+            {
+              id: "triggerDemo",
+              order: 6,
+              position: { top: "58%", left: "82%" },
+              text: "Demo Spatial Chat",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state7",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/URL-Icon-white.png",
+              onClick() {
+                window
+                  .open("https://neyroostudio.neyroo.de/", "_blank")
+                  .focus();
+              },
+            },
+          ],
+        },
+
+        // STATE 04 - Surprise to Engage
+        state4: {
+          backgroundVideo: BACKGROUND_VIDEOS.screenLoop,
+          screenDiv: true,
+          screenDivType: "iframe",
+          screenDivSource:
+            "https://neyroosales.space/wp-content/uploads/2024/05/Surprise-to-Engage.pdf",
+          screenDivMobileSource:
+            "https://neyroosales.space/wp-content/uploads/2024/06/thumbnails-screen-ssn-pdf.jpg",
+          screenDivMobileSourceType: "image",
+          screenDivMobilePopupType: "iframe",
+          screenDivMobilePopupSource:
+            "https://neyroosales.space/wp-content/uploads/2024/05/Surprise-to-Engage.pdf",
+          triggers: [
+            {
+              id: "trigger1",
+              order: 1,
+              position: { top: "42%", left: "2%" },
+              text: "Begrüßung",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state2",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/Video-Icon-white-ssn.png",
+              onClick() {
+                initiateTransition(this.transitionVideo, this.targetState);
+              },
+            },
+            {
+              id: "triggerPathway",
+              order: 2,
+              position: { top: "50%", left: "2%" },
+              text: "Pathway Experience",
+
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state3",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/PDF-Icon-white-ssn.png",
+              onClick() {
+                initiateTransition(this.transitionVideo, this.targetState);
+              },
+            },
+
+            {
+              id: "triggerSurprise",
+              order: 3,
+              position: { top: "58%", left: "2%" },
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/PDF-Icon-white-ssn.png",
+              text: "Surprise to engage Download",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state4",
+              onClick() {
+                triggerFileDownload(
+                  "https://neyroosales.space/wp-content/uploads/2024/05/Surprise-to-Engage.pdf"
+                );
+              },
+            },
+
+            {
+              id: "trigger4",
+              order: 4,
+              position: { top: "42%", left: "82%" },
+              text: "Neyroo Film",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state5",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/Video-Icon-white-ssn.png",
+              onClick() {
+                initiateTransition(this.transitionVideo, this.targetState);
+              },
+            },
+            {
+              id: "triggerNeyrooStudio",
+              order: 5,
+              position: { top: "50%", left: "82%" },
+              text: "Neyroo Studio",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state6",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/URL-Icon-white.png",
+              onClick() {
+                window
+                  .open("https://neyroostudio.neyroo.de/", "_blank")
+                  .focus();
+              },
+            },
+            {
+              id: "triggerDemo",
+              order: 6,
+              position: { top: "58%", left: "82%" },
+              text: "Demo Spatial Chat",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state7",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/URL-Icon-white.png",
+              onClick() {
+                window
+                  .open("https://neyroostudio.neyroo.de/", "_blank")
+                  .focus();
+              },
+            },
+          ],
+        }, // STATE 05 - Neyroo Film
+        state5: {
+          backgroundVideo: BACKGROUND_VIDEOS.screenLoop,
+          screenDiv: true,
+          screenDivType: "video",
+          screenDivSource: SCREEN_DIV_VIDEOS.NeyrooFilm,
+          screenDivMobileSource: SCREEN_DIV_VIDEOS.NeyrooFilm,
+          screenDivMobileSourceType: "video",
+          screenDivMobilePopupType: "video",
+          screenDivMobilePopupSource: SCREEN_DIV_VIDEOS.NeyrooFilm,
+          triggers: [
+            {
+              id: "trigger1",
+              order: 1,
+              position: { top: "42%", left: "2%" },
+              text: "Begrüßung",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state2",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/Video-Icon-white-ssn.png",
+              onClick() {
+                initiateTransition(this.transitionVideo, this.targetState);
+              },
+            },
+            {
+              id: "triggerPathway",
+              order: 2,
+              position: { top: "50%", left: "2%" },
+              text: "Pathway Experience",
+
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state3",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/PDF-Icon-white-ssn.png",
+              onClick() {
+                initiateTransition(this.transitionVideo, this.targetState);
+              },
+            },
+
+            {
+              id: "triggerSurprise",
+              order: 3,
+              position: { top: "58%", left: "2%" },
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/PDF-Icon-white-ssn.png",
+              text: "Surprise to engage Download",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state4",
+              onClick() {
+                initiateTransition(this.transitionVideo, this.targetState);
+              },
+            },
+
+            {
+              id: "trigger4",
+              order: 4,
+              position: { top: "42%", left: "82%" },
+              text: "Neyroo Film",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state5",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/Video-Icon-white-ssn.png",
+              onClick() {
+                enterFullscreenVideo();
+              },
+            },
+            {
+              id: "triggerNeyrooStudio",
+              order: 5,
+              position: { top: "50%", left: "82%" },
+              text: "Neyroo Studio",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state6",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/URL-Icon-white.png",
+              onClick() {
+                window
+                  .open("https://neyroostudio.neyroo.de/", "_blank")
+                  .focus();
+              },
+            },
+            {
+              id: "triggerDemo",
+              order: 6,
+              position: { top: "58%", left: "82%" },
+              text: "Demo Spatial Chat",
+              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
+              targetState: "state7",
+              icon: "https://neyroosales.space/wp-content/uploads/2024/06/URL-Icon-white.png",
+              onClick() {
+                window
+                  .open("https://neyroostudio.neyroo.de/", "_blank")
+                  .focus();
+              },
+            },
+          ],
+        },
+      };
+
+      // Define the initial state
+      let currentState = introState;
+
       // =======================
       // INITIAL SETUP
       // =======================
@@ -608,279 +1199,6 @@
       const videos = document.querySelectorAll("video");
       const video = document.querySelector(".background-video");
       const screenDiv = document.querySelector(".screen-div");
-
-      // =======================
-      // STATE MANAGEMENT
-      // =======================
-
-      // VIDEO URLS
-
-      // Transition Videos
-      const TRANSITION_VIDEOS = {
-        intro: {
-          desktop: {
-            url: "https://neyroosales.space/wp-content/uploads/2024/04/ssn-intro-transition.mp4",
-            length: 7400,
-          },
-          mobile: {
-            url: "https://neyroosales.space/wp-content/uploads/2024/06/ssn-intro-transition-mobile_reencoded.mp4",
-            length: 6000,
-          },
-        },
-        menuTurn: {
-          desktop: {
-            url: "https://neyroosales.space/wp-content/uploads/2024/04/ssn-menu-turn-transition.mp4",
-            length: 8800,
-          },
-          mobile: {
-            url: "https://neyroosales.space/wp-content/uploads/2024/06/ssn-menu-turn-transition-mobile-v2-reencoded.mp4",
-            length: 8800,
-          },
-        },
-        screenToScreen: {
-          desktop: {
-            url: "https://neyroosales.space/wp-content/uploads/2024/04/ssn-screen-to-screen-transition.mp4",
-            length: 5120,
-          },
-          mobile: {
-            url: "https://neyroosales.space/wp-content/uploads/2024/06/ssn-screen-to-screen-transition-mobile-reencoded.mp4",
-            length: 5120,
-          },
-        },
-      };
-
-      // Background Videos
-      const BACKGROUND_VIDEOS = {
-        menuLoop: {
-          desktop: {
-            url: "https://neyroosales.space/wp-content/uploads/2024/04/ssn-menu-loop.mp4",
-          },
-          mobile: {
-            url: "https://neyroosales.space/wp-content/uploads/2024/06/ssn-menu-loop-mobile-reencoded.mp4",
-          },
-        },
-        screenLoop: {
-          desktop: {
-            url: "https://neyroosales.space/wp-content/uploads/2024/04/ssn-screen-loop.mp4",
-          },
-          mobile: {
-            url: "https://neyroosales.space/wp-content/uploads/2024/06/ssn-screen-loop-mobile-reencoded.mp4",
-          },
-        },
-      };
-
-      // Screen Div Videos
-      const SCREEN_DIV_VIDEOS = {
-        pathwayExperience:
-          "https://neyroosales.space/wp-content/uploads/2024/06/gruenenthal_begruessung_bjoern-1080p.mp4",
-      };
-
-      // INTRO STATE
-      const introState = {
-        transitionVideo: TRANSITION_VIDEOS.intro,
-        targetState: "state1",
-      };
-
-      // STATES
-      const states = {
-        // STATE 01 - MENU INITIAL
-        state1: {
-          backgroundVideo: BACKGROUND_VIDEOS.menuLoop,
-          triggers: [
-            {
-              id: "trigger1",
-              order: 1,
-              position: { top: "42%", left: "5.5%" },
-              text: "Test Video",
-              transitionVideo: TRANSITION_VIDEOS.menuTurn,
-              targetState: "state2",
-              icon: "https://neyroosales.space/wp-content/uploads/2024/06/Video-Icon-white-ssn.png",
-              onClick() {
-                initiateTransition(this.transitionVideo, this.targetState);
-              },
-            },
-            {
-              id: "trigger2",
-              order: 2,
-              position: { top: "42%", left: "77.5%" },
-              text: "Surprise to engage",
-              transitionVideo: TRANSITION_VIDEOS.menuTurn,
-              targetState: "state3",
-              icon: "https://neyroosales.space/wp-content/uploads/2024/06/PDF-Icon-white-ssn.png",
-              onClick() {
-                initiateTransition(this.transitionVideo, this.targetState);
-              },
-            },
-            {
-              id: "triggerCamp3",
-              order: 3,
-              position: { top: "50%", left: "77.5%" },
-              icon: "https://neyroosales.space/wp-content/uploads/2024/06/URL-Icon-white.png",
-              text: "TÜV Camp3",
-              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
-              targetState: "state4",
-              onClick() {
-                window
-                  .open("https://camp3.tuv.com/de-DE/camp3/campfire", "_blank")
-                  .focus();
-              },
-            },
-            {
-              id: "triggerGF",
-              order: 4,
-              position: { top: "50%", left: "5.5%" },
-              text: "GF Hydrogen Space",
-              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
-              targetState: "state5",
-              icon: "https://neyroosales.space/wp-content/uploads/2024/06/URL-Icon-white.png",
-              onClick() {
-                window
-                  .open(
-                    "https://eventcampus.gfps.com/de-DE/connection-for-live/gf-hydrogen-world-en",
-                    "_blank"
-                  )
-                  .focus();
-              },
-            },
-          ],
-        },
-        // STATE 02 - TEST VIDEO
-        state2: {
-          backgroundVideo: BACKGROUND_VIDEOS.screenLoop,
-          screenDiv: true,
-          screenDivType: "video",
-          screenDivSource: SCREEN_DIV_VIDEOS.pathwayExperience,
-          screenDivMobileSource: SCREEN_DIV_VIDEOS.pathwayExperience,
-          screenDivMobileSourceType: "video",
-          screenDivMobilePopupType: "video",
-          screenDivMobilePopupSource: SCREEN_DIV_VIDEOS.pathwayExperience,
-          triggers: [
-            {
-              id: "trigger1",
-              position: { top: "42%", left: "2%" },
-              text: "Test Video Vollbild",
-              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
-              highlighted: 1,
-              targetState: "state2",
-              icon: "https://neyroosales.space/wp-content/uploads/2024/06/PDF-Icon-white-ssn.png",
-              onClick() {
-                enterFullscreenVideo();
-              },
-            },
-            {
-              id: "trigger2",
-              position: { top: "42%", left: "82%" },
-              text: "Surprise to engage",
-              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
-              targetState: "state3",
-              icon: "https://neyroosales.space/wp-content/uploads/2024/06/PDF-Icon-white-ssn.png",
-              onClick() {
-                initiateTransition(this.transitionVideo, this.targetState);
-              },
-            },
-            {
-              id: "triggerCamp3",
-              position: { top: "50%", left: "82%" },
-              text: "TÜV Camp3",
-              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
-              targetState: "state4",
-              icon: "https://neyroosales.space/wp-content/uploads/2024/06/URL-Icon-white.png",
-              onClick() {
-                window
-                  .open("https://camp3.tuv.com/de-DE/camp3/campfire", "_blank")
-                  .focus();
-              },
-            },
-            {
-              id: "triggerGF",
-              position: { top: "50%", left: "2%" },
-              text: "GF Hydrogen Space",
-              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
-              targetState: "state4",
-              icon: "https://neyroosales.space/wp-content/uploads/2024/06/URL-Icon-white.png",
-              onClick() {
-                window
-                  .open(
-                    "https://eventcampus.gfps.com/de-DE/connection-for-live/gf-hydrogen-world-en",
-                    "_blank"
-                  )
-                  .focus();
-              },
-            },
-          ],
-        },
-        // STATE 03 - SURPRISE TO ENGAGE
-        state3: {
-          backgroundVideo: BACKGROUND_VIDEOS.screenLoop,
-          screenDiv: true,
-          screenDivType: "iframe",
-          screenDivSource:
-            "https://neyroosales.space/wp-content/uploads/2024/05/Surprise-to-Engage.pdf",
-          screenDivMobileSource:
-            "https://neyroosales.space/wp-content/uploads/2024/06/thumbnails-screen-ssn-pdf.jpg",
-          screenDivMobileSourceType: "image",
-          screenDivMobilePopupType: "iframe",
-          screenDivMobilePopupSource:
-            "https://neyroosales.space/wp-content/uploads/2024/05/Surprise-to-Engage.pdf",
-          triggers: [
-            {
-              id: "trigger1",
-              position: { top: "42%", left: "2%" },
-              text: "Test Video",
-              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
-              targetState: "state2",
-              icon: "https://neyroosales.space/wp-content/uploads/2024/06/Video-Icon-white-ssn.png",
-              size: { width: "40%", height: "40%" },
-              onClick() {
-                initiateTransition(this.transitionVideo, this.targetState);
-              },
-            },
-            {
-              id: "trigger2",
-              position: { top: "42%", left: "82%" },
-              text: "Surprise to engage Download",
-              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
-              highlighted: 1,
-              targetState: "state3",
-              icon: "https://neyroosales.space/wp-content/uploads/2024/06/PDF-Icon-white-ssn.png",
-              onClick() {
-                triggerFileDownload(
-                  "https://neyroosales.space/wp-content/uploads/2024/04/Surprise-to-Engage.pdf"
-                );
-              },
-            },
-            {
-              id: "triggerCamp3",
-              position: { top: "50%", left: "82%" },
-              text: "TÜV Camp3",
-              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
-              targetState: "state4",
-              icon: "https://neyroosales.space/wp-content/uploads/2024/06/URL-Icon-white.png",
-              onClick() {
-                window
-                  .open("https://camp3.tuv.com/de-DE/camp3/campfire", "_blank")
-                  .focus();
-              },
-            },
-            {
-              id: "triggerGF",
-              position: { top: "50%", left: "2%" },
-              text: "GF Hydrogen Space",
-              transitionVideo: TRANSITION_VIDEOS.screenToScreen,
-              targetState: "state5",
-              icon: "https://neyroosales.space/wp-content/uploads/2024/06/URL-Icon-white.png",
-              onClick() {
-                window
-                  .open(
-                    "https://eventcampus.gfps.com/de-DE/connection-for-live/gf-hydrogen-world-en",
-                    "_blank"
-                  )
-                  .focus();
-              },
-            },
-          ],
-        },
-      };
 
       // =======================
       // EVENT LISTENERS SETUP
@@ -932,381 +1250,12 @@
         }
       }
 
-      const audioContext = new (window.AudioContext ||
-        window.webkitAudioContext)();
-      console.log("AudioContext state:", audioContext.state);
-
-      function startBackgroundSound() {
-        if (audioContext.state === "suspended") {
-          console.log("AudioContext is suspended, resuming now...");
-          audioContext.resume().then(() => {
-            console.log("AudioContext resumed");
-            playBackgroundSound();
-          });
-        } else {
-          console.log("AudioContext is not suspended, playing sound...");
-          playBackgroundSound();
-        }
-      }
-
       function playBackgroundSound() {
         if (backgroundSound) {
-          backgroundSound
-            .play()
-            .then(() => {
-              console.log("Background sound started successfully.");
-              isSoundPlaying = true;
-            })
-            .catch((error) => {
-              console.error("Error playing sound:", error);
-              alert(
-                "Audio playback failed. Please check your browser settings."
-              );
-            });
-        }
-      }
-
-      let currentState = introState; // or any other initial state
-
-      // =======================
-      // RESPONSIVE STYLES
-      // =======================
-
-      function applyResponsiveStyles() {
-        const backgroundVideoEl = document.querySelector(".background-video");
-        const transitionVideoEl = document.querySelector(".transition-video");
-
-        const isLandscape = window.innerWidth > window.innerHeight;
-        const isMobileView = window.innerWidth < 768 && !isLandscape;
-
-        if (isMobileView) {
-          // Apply mobile styles
-          backgroundVideoEl.classList.add("mobile");
-          transitionVideoEl.classList.add("mobile");
-
-          // Stop and remove the background sound
-          if (backgroundSound && isSoundPlaying) {
-            backgroundSound.pause();
-            backgroundSound = null;
-            isSoundPlaying = false;
-          }
-        } else {
-          // Apply desktop styles
-          backgroundVideoEl.classList.remove("mobile");
-          transitionVideoEl.classList.remove("mobile");
-
-          // Add and play the background sound
-          initializeBackgroundSound();
-          startBackgroundSound();
-        }
-
-        // Update the background video source based on the current state
-        if (currentState && currentState.backgroundVideo) {
-          const newSrc = getVideoSource(currentState.backgroundVideo);
-          if (backgroundVideoEl.src !== newSrc.url) {
-            backgroundVideoEl.src = newSrc.url;
-            backgroundVideoEl.load(); // Ensure the video is reloaded with the new source
-            backgroundVideoEl.play(); // Autoplay the video if necessary
-          }
-        }
-      }
-
-      applyResponsiveStyles();
-      window.addEventListener("resize", applyResponsiveStyles);
-
-      function getVideoSource(videoObj) {
-        return window.innerWidth < 768 ? videoObj.mobile : videoObj.desktop;
-      }
-
-      // =======================
-      // START JOURNEY
-      // =======================
-
-      document.getElementById("start-journey").addEventListener("click", () => {
-        console.log("Start Journey button clicked.");
-
-        audioContext
-          .resume()
-          .then(() => {
-            console.log("AudioContext resumed.");
-            startBackgroundSound();
-          })
-          .catch((error) => {
-            console.error("Error resuming AudioContext:", error);
-            alert(
-              "AudioContext resume failed. Please check your browser settings."
-            );
+          backgroundSound.play().then(() => {
+            console.log("Background sound started successfully.");
+            isSoundPlaying = true;
           });
-
-        startJourney();
-      });
-
-      function startJourney() {
-        // Start the fade-out effect
-        introOverlay.style.opacity = "0";
-
-        // Wait for the fade-out to complete before hiding the overlay and starting the journey
-        setTimeout(() => {
-          introOverlay.style.display = "none";
-          introOverlay.remove();
-          initiateTransition(
-            introState.transitionVideo,
-            introState.targetState,
-            true
-          );
-        }, 500); // Matches the CSS transition duration
-      }
-
-      // =======================
-      // TRANSITION FUNCTION
-      // =======================
-
-      function initiateTransition(transitionVideoSrc, nextState) {
-        const isMobileView = window.innerWidth < 768;
-        const videoConfig = isMobileView
-          ? transitionVideoSrc.mobile
-          : transitionVideoSrc.desktop;
-        const videoSrc = videoConfig.url;
-        const transitionLength = videoConfig.length;
-        const fadeDuration = 500;
-
-        if (currentState === introState) {
-          introOverlay.style.opacity = "0";
-        } else {
-          uxContainer.style.opacity = "0";
-        }
-
-        togglePointerEvents([uxContainer, overlaysContainer], false);
-        transitionVideoEl.src = videoSrc;
-        transitionVideoEl.setAttribute("playsinline", "true");
-        transitionVideoEl.setAttribute("muted", "true"); // Ensure the video is muted for autoplay
-        transitionVideoEl.load();
-
-        const playPromise = transitionVideoEl.play();
-        if (playPromise !== undefined) {
-          playPromise.catch((error) => {
-            console.error("Error playing transition video:", error);
-            const fallbackMessage = document.createElement("div");
-            fallbackMessage.classList.add("fallback-message");
-            fallbackMessage.innerText = "Click to play the video";
-            transitionVideoEl.parentElement.appendChild(fallbackMessage);
-            fallbackMessage.addEventListener("click", () => {
-              transitionVideoEl.play().then(() => {
-                fallbackMessage.remove();
-              });
-            });
-          });
-        }
-
-        transitionVideoEl.style.opacity = "1";
-        setTimeout(() => {
-          changeState(nextState);
-        }, transitionLength - 800);
-
-        setTimeout(() => {
-          transitionVideoEl.style.opacity = "0";
-          if (currentState === introState) {
-            introOverlay.style.display = "none";
-            introOverlay.remove();
-          } else {
-            uxContainer.style.opacity = "1";
-          }
-        }, transitionLength - fadeDuration);
-
-        setTimeout(() => {
-          transitionVideoEl.src = "";
-          togglePointerEvents([uxContainer, overlaysContainer], true);
-          updateuxContainer();
-
-          // Show the footer buttons after the transition is complete
-          document.querySelector(".footer-buttons").classList.add("show");
-        }, transitionLength);
-      }
-
-      // =======================
-      // STATE CHANGE FUNCTION
-      // =======================
-
-      function changeState(stateKey) {
-        const state = states[stateKey];
-        const backgroundVideoConfig = getVideoSource(state.backgroundVideo);
-        const backgroundVideoSrc = backgroundVideoConfig.url;
-        currentState = state;
-
-        backgroundVideoEl.src = backgroundVideoSrc;
-        backgroundVideoEl.setAttribute("playsinline", "true");
-        backgroundVideoEl.setAttribute("muted", "true"); // Ensure the video is muted for autoplay
-        backgroundVideoEl.load();
-        backgroundVideoEl.oncanplaythrough = () => {
-          backgroundVideoEl.play();
-          backgroundVideoEl.style.opacity = "1";
-        };
-
-        overlaysContainer.innerHTML = "";
-
-        if (state.clickableOverlays) {
-          state.clickableOverlays.forEach((overlayConfig) => {
-            createClickableOverlay(overlayConfig);
-          });
-        }
-
-        updateTriggers(state.triggers);
-
-        setTimeout(function () {
-          updateScreenDiv(state);
-          // Ensure AudioContext is resumed for sound playback
-          audioContext
-            .resume()
-            .then(() => {
-              console.log("AudioContext resumed for state change.");
-            })
-            .catch((error) => {
-              console.error("Error resuming AudioContext:", error);
-            });
-        }, 0);
-      }
-
-      // =======================
-      // SCREEN DIV CREATION
-      // =======================
-
-      function updateScreenDiv(state) {
-        if (!uxContainer) {
-          console.error(
-            "Trigger container not found. Cannot manage screen-div."
-          );
-          return;
-        }
-
-        // Remove existing screen-div if present
-        let screenDiv = uxContainer.querySelector(".screen-div");
-        if (screenDiv) {
-          uxContainer.removeChild(screenDiv);
-        }
-
-        // Check if the current state requires a screen-div
-        if (state.screenDiv) {
-          // Create a new screen-div if required by the current state
-          screenDiv = document.createElement("div");
-          screenDiv.className = "screen-div";
-
-          // Determine what type of content to create inside the screen-div
-          const isLandscape = window.innerWidth > window.innerHeight;
-          const isMobileView = window.innerWidth < 768 && !isLandscape;
-          let source, sourceType, popupType, popupSource;
-
-          if (isMobileView) {
-            source = state.screenDivMobileSource;
-            sourceType = state.screenDivMobileSourceType;
-            popupType = state.screenDivMobilePopupType;
-            popupSource = state.screenDivMobilePopupSource;
-          } else {
-            source = state.screenDivSource;
-            sourceType = state.screenDivType;
-            popupType = state.screenDivType;
-            popupSource = state.screenDivSource;
-          }
-
-          if (isMobileView && sourceType === "video") {
-            const img = document.createElement("img");
-            img.src =
-              "https://neyroosales.space/wp-content/uploads/2024/06/thumbnails-screen-ssn-video.jpg";
-            img.style.width = "100%";
-            img.style.height = "100%";
-            img.style.objectFit = "cover";
-            img.addEventListener("click", () => {
-              const video = document.createElement("video");
-              video.src = source;
-              video.setAttribute("preload", "auto");
-              video.setAttribute("autoplay", "autoplay");
-              video.setAttribute("loop", "loop");
-              video.setAttribute("playsinline", "playsinline");
-              video.setAttribute("allowfullscreen", true);
-              video.setAttribute("webkit-playsinline", "");
-              video.style.width = "100%";
-              video.style.height = "100%";
-              video.style.objectFit = "cover";
-              video.controlsList = "nodownload";
-
-              // Initially hide the controls
-              video.controls = false;
-
-              video.addEventListener("play", () => {
-                if (backgroundSound) backgroundSound.pause();
-              });
-              video.addEventListener("pause", () => {
-                if (backgroundSound) backgroundSound.play();
-              });
-
-              // Add event listener to show controls on first touch and then behave normally
-              const showControlsOnFirstTouch = () => {
-                video.controls = true;
-                video.removeEventListener(
-                  "touchstart",
-                  showControlsOnFirstTouch
-                );
-              };
-              video.addEventListener("touchstart", showControlsOnFirstTouch);
-
-              // Replace the image with the video element and play it with sound
-              screenDiv.innerHTML = ""; // Clear the screen div content
-              screenDiv.appendChild(video);
-
-              video.play().catch((error) => {
-                console.error("Error attempting to play the video:", error);
-              });
-            });
-            screenDiv.appendChild(img);
-          } else if (sourceType === "video") {
-            const video = document.createElement("video");
-            video.src = source;
-            video.setAttribute("preload", "auto");
-            video.setAttribute("autoplay", "autoplay");
-            video.setAttribute("loop", "loop");
-            video.setAttribute("muted", "muted");
-            video.setAttribute("playsinline", "playsinline");
-            video.setAttribute("allowfullscreen", true);
-            video.setAttribute("webkit-playsinline", "");
-            video.controlsList = "nodownload";
-            video.style.width = "100%";
-            video.style.height = "100%";
-            video.style.objectFit = "cover";
-            video.addEventListener("play", () => {
-              if (backgroundSound) backgroundSound.pause();
-            });
-            video.addEventListener("pause", () => {
-              if (backgroundSound) backgroundSound.play();
-            });
-
-            // Ensure the video is played after it's ready
-            video.addEventListener("canplaythrough", () => {
-              video.play().catch((error) => {
-                console.error("Error attempting to play the video:", error);
-              });
-            });
-
-            screenDiv.appendChild(video);
-          } else if (sourceType === "image") {
-            const img = document.createElement("img");
-            img.src = source;
-            img.style.width = "100%";
-            img.style.height = "100%";
-            img.style.objectFit = "cover";
-            img.addEventListener("click", () => {
-              window.open(popupSource, "_blank");
-            });
-            screenDiv.appendChild(img);
-          } else if (sourceType === "iframe") {
-            const iframe = document.createElement("iframe");
-            iframe.src = source;
-            iframe.style.width = "100%";
-            iframe.style.height = "100%";
-            iframe.setAttribute("frameborder", "0");
-            screenDiv.appendChild(iframe);
-          }
-
-          // Append the new screen-div to the uxContainer
-          uxContainer.appendChild(screenDiv);
         }
       }
 
@@ -1358,6 +1307,340 @@
           ? "https://asset.neyroo-hub.de/cc511007-cb13-430c-ab86-f76356def0e5/c196f9e1-308e-42ce-b1e7-8a5887fdf8ff/PUBLIC/8fcbb006-8315-4d55-8492-b89e2f7f30bc/volume-mute.svg?version=1"
           : "https://asset.neyroo-hub.de/cc511007-cb13-430c-ab86-f76356def0e5/c196f9e1-308e-42ce-b1e7-8a5887fdf8ff/PUBLIC/f4959c87-e4eb-407d-8ded-720521c9d726/volume-on.svg?version=1";
       });
+
+      // =======================
+      // RESPONSIVE STYLES
+      // =======================
+
+      function applyResponsiveStyles() {
+        const isLandscape = window.innerWidth > window.innerHeight;
+        const isMobileView = window.innerWidth < 768 && !isLandscape;
+        backgroundVideoEl.muted = true;
+
+        if (isMobileView) {
+          // Apply mobile styles
+          backgroundVideoEl.classList.add("mobile");
+          transitionVideoEl.classList.add("mobile");
+        } else {
+          // Apply desktop styles
+          backgroundVideoEl.classList.remove("mobile");
+          transitionVideoEl.classList.remove("mobile");
+        }
+
+        // Update the background video source based on the current state
+        if (currentState && currentState.backgroundVideo) {
+          const newSrc = getVideoSource(currentState.backgroundVideo);
+          if (backgroundVideoEl.src !== newSrc.url) {
+            backgroundVideoEl.src = newSrc.url;
+            backgroundVideoEl.load(); // Ensure the video is reloaded with the new source
+            backgroundVideoEl.muted = true;
+          }
+        }
+      }
+
+      applyResponsiveStyles();
+      window.addEventListener("resize", applyResponsiveStyles);
+
+      function getVideoSource(videoObj) {
+        return window.innerWidth < 768 ? videoObj.mobile : videoObj.desktop;
+      }
+
+      // =======================
+      // START JOURNEY
+      // =======================
+
+      document.getElementById("start-journey").addEventListener("click", () => {
+        console.log("Start Journey button clicked.");
+        startJourney();
+        playBackgroundVideo();
+        initializeBackgroundSound(); // Ensure background sound is initialized
+      });
+
+      function playBackgroundVideo() {
+        backgroundVideoEl.play();
+      }
+
+      function startJourney() {
+        // Start the fade-out effect
+        introOverlay.style.opacity = "0";
+
+        // Wait for the fade-out to complete before hiding the overlay and starting the journey
+        setTimeout(() => {
+          introOverlay.style.display = "none";
+          introOverlay.remove();
+          initiateTransition(
+            introState.transitionVideo,
+            introState.targetState,
+            true
+          );
+          playBackgroundSound();
+        }, 500); // Matches the CSS transition duration
+      }
+
+      // =======================
+      // TRANSITION FUNCTION
+      // =======================
+
+      function initiateTransition(transitionVideoSrc, nextState) {
+        const isMobileView = window.innerWidth < 768;
+        const videoConfig = isMobileView
+          ? transitionVideoSrc.mobile
+          : transitionVideoSrc.desktop;
+        const videoSrc = videoConfig.url;
+        const transitionLength = videoConfig.length;
+        const fadeDuration = 500;
+
+        if (currentState === introState) {
+          introOverlay.style.opacity = "0";
+        } else {
+          uxContainer.style.opacity = "0";
+        }
+
+        togglePointerEvents([uxContainer, overlaysContainer], false);
+        transitionVideoEl.src = videoSrc;
+        transitionVideoEl.muted = false; // Ensure the transition video is unmuted
+        transitionVideoEl.load();
+
+        const playPromise = transitionVideoEl.play();
+        if (playPromise !== undefined) {
+          playPromise.catch((error) => {
+            console.error("Error playing transition video:", error);
+            const fallbackMessage = document.createElement("div");
+            fallbackMessage.classList.add("fallback-message");
+            fallbackMessage.innerText = "Click to play the video";
+            transitionVideoEl.parentElement.appendChild(fallbackMessage);
+            fallbackMessage.addEventListener("click", () => {
+              transitionVideoEl.play().then(() => {
+                fallbackMessage.remove();
+              });
+            });
+          });
+        }
+
+        transitionVideoEl.style.opacity = "1";
+        setTimeout(() => {
+          changeState(nextState);
+        }, transitionLength - 800);
+
+        setTimeout(() => {
+          transitionVideoEl.style.opacity = "0";
+          updateuxContainer();
+          if (currentState === introState) {
+            introOverlay.style.display = "none";
+            introOverlay.remove();
+          } else {
+            uxContainer.style.opacity = "1";
+          }
+        }, transitionLength - fadeDuration);
+
+        setTimeout(() => {
+          transitionVideoEl.src = "";
+          togglePointerEvents([uxContainer, overlaysContainer], true);
+
+          // Show the footer buttons after the transition is complete
+          document.querySelector(".footer-buttons").classList.add("show");
+        }, transitionLength);
+
+        // Clear the current screen div after 500 milliseconds
+        setTimeout(() => {
+          const screenDiv = document.querySelector(".screen-div");
+          if (screenDiv) {
+            screenDiv.remove();
+          }
+        }, 500);
+      }
+
+      // =======================
+      // STATE CHANGE FUNCTION
+      // =======================
+
+      function changeState(stateKey) {
+        console.log(`Changing state to: ${stateKey}`); // Log when state changes
+        const state = states[stateKey];
+        const backgroundVideoConfig = getVideoSource(state.backgroundVideo);
+        const backgroundVideoSrc = backgroundVideoConfig.url;
+        currentState = state;
+
+        backgroundVideoEl.src = backgroundVideoSrc;
+        backgroundVideoEl.load();
+        backgroundVideoEl.oncanplaythrough = () => {
+          backgroundVideoEl.play().catch((error) => {
+            console.error("Error attempting to play the video:", error);
+          });
+          backgroundVideoEl.style.opacity = "1";
+        };
+
+        overlaysContainer.innerHTML = "";
+
+        if (state.clickableOverlays) {
+          state.clickableOverlays.forEach((overlayConfig) => {
+            createClickableOverlay(overlayConfig);
+          });
+        }
+
+        updateTriggers(state.triggers);
+
+        setTimeout(function () {
+          updateScreenDiv(state);
+          console.log(`Current state is now: ${stateKey}`); // Log the current state
+        }, 0);
+      }
+
+      // =======================
+      // SCREEN DIV CREATION
+      // =======================
+
+      function updateScreenDiv(state) {
+        if (!uxContainer) {
+          console.error(
+            "Trigger container not found. Cannot manage screen-div."
+          );
+          return;
+        }
+
+        // Remove existing screen-div if present
+        let screenDiv = uxContainer.querySelector(".screen-div");
+        if (screenDiv) {
+          uxContainer.removeChild(screenDiv);
+        }
+
+        // Check if the current state requires a screen-div
+        if (state.screenDiv) {
+          // Create a new screen-div if required by the current state
+          screenDiv = document.createElement("div");
+          screenDiv.className = "screen-div";
+
+          // Determine what type of content to create inside the screen-div
+          const isLandscape = window.innerWidth > window.innerHeight;
+          const isMobileView = window.innerWidth < 768 && !isLandscape;
+          let source, sourceType, popupType, popupSource;
+
+          if (isMobileView) {
+            source = state.screenDivMobileSource;
+            sourceType = state.screenDivMobileSourceType;
+            popupType = state.screenDivMobilePopupType;
+            popupSource = state.screenDivMobilePopupSource;
+          } else {
+            source = state.screenDivSource;
+            sourceType = state.screenDivType;
+            popupType = state.screenDivType;
+            popupSource = state.screenDivSource;
+          }
+
+          const handleFirstTouch = (video) => {
+            const showControlsOnFirstTouch = () => {
+              video.controls = true;
+              video.removeEventListener("touchstart", showControlsOnFirstTouch);
+            };
+            video.addEventListener("touchstart", showControlsOnFirstTouch);
+          };
+
+          if (isMobileView && sourceType === "video") {
+            const img = document.createElement("img");
+            img.src =
+              "https://neyroosales.space/wp-content/uploads/2024/06/thumbnails-screen-ssn-video.jpg";
+            img.style.width = "100%";
+            img.style.height = "100%";
+            img.style.objectFit = "cover";
+            img.addEventListener("click", () => {
+              const video = document.createElement("video");
+              video.src = source;
+              video.setAttribute("preload", "auto");
+              video.setAttribute("autoplay", "autoplay");
+              video.setAttribute("loop", "loop");
+              video.setAttribute("playsinline", "playsinline");
+              video.setAttribute("allowfullscreen", true);
+              video.setAttribute("webkit-playsinline", "");
+              video.style.width = "100%";
+              video.style.height = "100%";
+              video.style.objectFit = "cover";
+              video.controlsList = "nodownload";
+
+              // Initially hide the controls
+              video.controls = false;
+              handleFirstTouch(video);
+
+              video.addEventListener("play", () => {
+                if (backgroundSound) backgroundSound.pause();
+              });
+              video.addEventListener("pause", () => {
+                if (backgroundSound) backgroundSound.play();
+              });
+
+              // Replace the image with the video element and play it with sound
+              screenDiv.innerHTML = ""; // Clear the screen div content
+              screenDiv.appendChild(video);
+
+              video.play().catch((error) => {
+                console.error("Error attempting to play the video:", error);
+              });
+            });
+            screenDiv.appendChild(img);
+          } else if (sourceType === "video") {
+            const video = document.createElement("video");
+            video.src = source;
+            video.setAttribute("preload", "auto");
+            video.setAttribute("autoplay", "autoplay");
+            video.setAttribute("loop", "loop");
+            video.setAttribute("muted", "muted"); // Ensure the video is muted
+            video.setAttribute("playsinline", "playsinline");
+            video.setAttribute("allowfullscreen", true);
+            video.setAttribute("webkit-playsinline", "");
+            video.controlsList = "nodownload";
+            video.style.width = "100%";
+            video.style.height = "100%";
+            video.style.objectFit = "cover";
+
+            if (isMobileView) {
+              // Initially hide the controls
+              video.controls = false;
+              handleFirstTouch(video);
+            } else {
+              // Enable the controls on desktop
+              video.controls = true;
+            }
+
+            // Ensure the video is played after it's ready
+            video.addEventListener("canplaythrough", () => {
+              video.play().catch((error) => {
+                console.error("Error attempting to play the video:", error);
+              });
+            });
+
+            video.addEventListener("play", () => {
+              if (backgroundSound) backgroundSound.pause();
+            });
+            video.addEventListener("pause", () => {
+              if (backgroundSound) backgroundSound.play();
+            });
+
+            screenDiv.appendChild(video);
+          } else if (sourceType === "image") {
+            const img = document.createElement("img");
+            img.src = source;
+            img.style.width = "100%";
+            img.style.height = "100%";
+            img.style.objectFit = "cover";
+            img.addEventListener("click", () => {
+              window.open(popupSource, "_blank");
+            });
+            screenDiv.appendChild(img);
+          } else if (sourceType === "iframe") {
+            const iframe = document.createElement("iframe");
+            iframe.src = source;
+            iframe.style.width = "100%";
+            iframe.style.height = "100%";
+            iframe.setAttribute("frameborder", "0");
+            screenDiv.appendChild(iframe);
+          }
+
+          // Ensure the screen-div is interactable
+          screenDiv.style.pointerEvents = "auto";
+
+          // Append the new screen-div to the uxContainer
+          uxContainer.appendChild(screenDiv);
+        }
+      }
 
       // =======================
       // CLICKABLE OVERLAYS
